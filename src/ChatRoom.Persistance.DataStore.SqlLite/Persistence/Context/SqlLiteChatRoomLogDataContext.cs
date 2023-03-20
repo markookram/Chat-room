@@ -2,10 +2,10 @@
 using ChatRoom.Persistence.SqlLite.Configuration;
 using ChatRoom.Persistence.SqlLite.Migrations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace ChatRoom.Persistence.DataStore.SqlLite.Persistence.Context;
 
+#pragma warning disable CS8618
 public sealed class SqlLiteChatRoomLogDataContext : DbContext
 {
     private static bool _created;

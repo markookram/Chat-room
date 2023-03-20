@@ -1,4 +1,5 @@
-﻿namespace ChatRoom.Persistence.DataStore.SqlLite;
+﻿#pragma warning disable CS8618
+namespace ChatRoom.Persistence.DataStore.SqlLite;
 
 public class ConnectionStringsOptions
 {

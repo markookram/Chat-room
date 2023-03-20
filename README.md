@@ -42,7 +42,7 @@ Application and domain bellongs to core of the system and forms inner layers res
 
 ### Implementation
 
-[![Sln](https://pasteboard.co/X2kKinsxpTHT.png "Sln")](https://pasteboard.co/X2kKinsxpTHT.png "Sln")
+[![sln](https://pasteboard.co/x28JuqvIy0LS.png "sln")](https://pasteboard.co/x28JuqvIy0LS.png "sln")
 
 Solution follows design decisions. 
 
