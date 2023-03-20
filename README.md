@@ -57,7 +57,8 @@ Solution follows design decisions.
 **Composition**
 
 Implements composition root,  where all of the services in the application dependencies are defined and "wired up" and makes layer dependencies and flow control clean  as possible.
-**Remark**: *It's not starting point of the app.*
+
+***Note:*  It's not starting point of the app.
 
 **Tests**
 - Unit tests
@@ -334,6 +335,8 @@ public interface IRepository<T> : IRepository where T : class, IEntity
 There are two different types of data stores
 - In-memory (currently, not fully operational)
 - Sql lite
+
+***Note:*  Both data stores are seeded with some values.
 
 Data stores are abstracted based on a type of entities they persisted. One for chat-room and the other for event sourcing.
  - IDataStore
