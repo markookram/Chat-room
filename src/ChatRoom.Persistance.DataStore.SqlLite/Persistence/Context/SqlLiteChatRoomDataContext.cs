@@ -21,23 +21,6 @@ public sealed class SqlLiteChatRoomDbContext : DbContext
         Database.EnsureCreated();
     }
 
-    /*public SqlLiteChatRoomDbContext(IOptions<ConnectionStringsOptions> options)
-        : base(GetOptions(options.Value))
-    {
-        if (_created) return;
-        _created = true;
-        Database.EnsureDeleted();
-        Database.EnsureCreated();
-    }
-
-    private static DbContextOptions GetOptions(ConnectionStringsOptions connOptions)
-    {
-        var builder = new DbContextOptionsBuilder()
-            .UseSqlite(connOptions.ChatRoomDatabase);
-
-        return builder.Options;
-    }*/
-
     public DbSet<Domain.Model.ChatRoom> ChatRooms { get; set; }
     public DbSet<Participant> Participants { get; set; }
 

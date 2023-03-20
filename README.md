@@ -58,7 +58,7 @@ Solution follows design decisions.
 
 Implements composition root,  where all of the services in the application dependencies are defined and "wired up" and makes layer dependencies and flow control clean  as possible.
 
-***Note:*  It's not starting point of the app.
+***Note:***  It's not starting point of the app.
 
 **Tests**
 - Unit tests
@@ -336,7 +336,7 @@ There are two different types of data stores
 - In-memory (currently, not fully operational)
 - Sql lite
 
-***Note:*  Both data stores are seeded with some values.
+***Note:***  Both data stores are seeded with chatRoom's and participant's.
 
 Data stores are abstracted based on a type of entities they persisted. One for chat-room and the other for event sourcing.
  - IDataStore

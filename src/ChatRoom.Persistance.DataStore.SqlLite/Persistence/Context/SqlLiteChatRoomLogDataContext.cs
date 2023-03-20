@@ -19,23 +19,6 @@ public sealed class SqlLiteChatRoomLogDataContext : DbContext
         Database.EnsureCreated();
     }
 
-    /*public SqlLiteChatRoomLogDataContext(IOptions<ConnectionStringsOptions> options)
-        : base(GetOptions(options.Value))
-    {
-        if (_created) return;
-        _created = true;
-        Database.EnsureDeleted();
-        Database.EnsureCreated();
-    }
-
-    private static DbContextOptions GetOptions(ConnectionStringsOptions conOptions)
-    {
-        var builder = new DbContextOptionsBuilder()
-            .UseSqlite(conOptions.ChatRoomLogDatabase);
-
-        return builder.Options;
-    }*/
-
     public DbSet<ChatEvent> ChatEvents { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

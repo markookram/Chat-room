@@ -4,7 +4,6 @@ using ChatRoom.Domain.Model;
 using ChatRoom.Persistence.DataStore.SqlLite.Extensions;
 using ChatRoom.Persistence.DataStore.SqlLite.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ChatRoom.Persistence.DataStore.SqlLite.Persistence;
 
