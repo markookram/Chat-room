@@ -332,8 +332,8 @@ public interface IRepository<T> : IRepository where T : class, IEntity
 }
 ```
 There are two different types of data stores
-- In-memory
-- Sql lite (just as an example, right now not fully operational...)
+- In-memory (currently, not fully operational)
+- Sql lite
 
 Data stores are abstracted based on a type of entities they persisted. One for chat-room and the other for event sourcing.
  - IDataStore
