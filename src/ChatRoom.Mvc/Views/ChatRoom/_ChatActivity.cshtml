@@ -1,0 +1,48 @@
+﻿@using ChatRoom.Mvc.Models.ChatRoom;
+@using ChatRoom.Application.Abstractions.Model
+@using ChatRoom.Mvc.Extensions
+
+@model ChatVm
+
+@{
+    int loggedInParticipantId = ViewBag.LoggedInParticipantId;
+
+    List<ParticipantDto> participantList = ViewBag.Participants ?? new List<ParticipantDto>();
+
+    var participants = participantList
+        .Where(p => p.Id != loggedInParticipantId)
+        .ToSelectListItems(x => x.Id, x => x.Name);
+}
+
+
+<fieldset class="border-bottom mb-3">
+    <div class="text-left font-weight-bolder pb-2">
+        <span>Try chat room...</span>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-5 ">
+            <select asp-for="ToParticipantId" class="form-control" asp-items="@participants"></select>
+            <span asp-validation-for="ToParticipantId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-4 pd-0">
+            <button id="sendHighFive" class="btn btn-secondary btn-sm col-7">
+                <i></i> Send high-five
+            </button>
+        </div>
+
+    </div>
+    <div class="form-row">
+        <div class="form-group col-5">
+            <input asp-for="Message" class="form-control" maxlength="200">
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+        <div class="form-group col-4 pd-0">
+            <button id="sendComment" class="btn btn-secondary btn-sm">
+                <i></i> Send a comment
+            </button>
+        </div>
+
+    </div>
+    <div class="d-flex justify-content-end">
+    </div>
+</fieldset>

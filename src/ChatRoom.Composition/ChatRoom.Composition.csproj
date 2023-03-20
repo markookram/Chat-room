@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChatRoom.Application\ChatRoom.Application.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\ChatRoom.Domain\ChatRoom.Domain.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\ChatRoom.Persistance.DataStore.SqlLite\ChatRoom.Persistence.DataStore.SqlLite.csproj" />
+    <ProjectReference Include="..\ChatRoom.Persistence.DataStore.InMemory\ChatRoom.Persistence.DataStore.InMemory.csproj" />
+    <ProjectReference Include="..\ChatRoom.Persistence\ChatRoom.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

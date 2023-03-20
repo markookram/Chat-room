@@ -1,0 +1,46 @@
+﻿@using ChatRoom.Mvc.Models.ChatRoomLog;
+@using ChatRoom.Mvc.Extensions
+@using ChatRoom.Application.Abstractions.Events.Enum
+
+@model ChatRoomLogVm
+@{
+    ViewData["Title"] = $"All events in the '{Model.Name}' chat-room.";
+
+    var granularityList = Enum.GetValues<GranularityType>()
+        .EnumToSelectListItems();
+}
+
+<div class="text-center">
+    <h4 class="display-6 mb-xxl-3">@ViewData["Title"]</h4>
+    <input asp-for="Id" type="hidden">
+    <input asp-for="ParticipantId" type="hidden">
+</div>
+<div class="mt-lg-5">
+    <div class="form-row col-12">
+        <div class="form-group col-2">
+            <label asp-for="GranularityId" class="display-label text-sm-start pl-0"></label>
+            <select asp-for="GranularityId" class="form-control" asp-items="@granularityList"></select>
+            <span asp-validation-for="GranularityId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-10 pt-4 text-right">
+            <a asp-controller="ChatRoom" asp-action="WelcomeToTheRoom" asp-route-roomId="@Model.Id" , asp-route-participantId="@Model.ParticipantId">Go back to the room</a>
+        </div>
+    </div>
+    <div class="form-group col" id="logContainer">
+        <partial model="@Model.Log" name="_LogResult"/>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/chat-room-log.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                urlCheckLog: '@Url.ChatRoomLog()'
+            };
+
+            ChatRoomLog(options).init();
+        });
+    </script>
+}

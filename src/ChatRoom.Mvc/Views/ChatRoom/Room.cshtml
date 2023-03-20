@@ -1,0 +1,69 @@
+﻿@using ChatRoom.Mvc.Models.ChatRoom
+@using ChatRoom.Mvc.Extensions
+
+@model ChatRoomVm
+@{
+    ViewData["Title"] = $"Welcome '{Model.ParticipantName}' in the '{Model.Name}' chat-room.";
+
+    ViewBag.LoggedInParticipantId = Model.ParticipantId;
+
+    var chat = new ChatVm()
+            {
+                RoomId = Model.Id,
+                ParticipantId = Model.ParticipantId
+            };
+}
+
+<form method="post" class="type2" id="chatRoomLoby">
+    <div class="">
+        <h4 class="display-6">@ViewData["Title"]</h4>
+        <input asp-for="ParticipantId" type="hidden">
+        <input asp-for="Id" type="hidden">
+        <input asp-for="Name" type="hidden">
+        <input asp-for="ParticipantName" type="hidden">
+    </div>
+    <div class="form-row col-12">
+        <div id="chatActivity" class="form-group mt-lg-5 col-6">
+            <partial model="@chat" name="_ChatActivity" />
+        </div>
+        <div id="RoomParticapnts" class="form-group mt-lg-5 text-right col-6">
+            <h4 class="display-label font-italic pr-2">Participants:</h4>
+            @foreach (var participant in Model.Participants ?? new List<ParticipantVm>())
+            {
+                <partial model="@participant" name="_RoomParticipant" />
+            }
+
+        </div>
+    </div>
+
+
+    <div>
+        <div class="form-row mt-lg-5">
+            <div class="form-group col-2 pr-0">
+                <button type="submit" class="btn btn-secondary btn-sm col-12" asp-controller="ChatRoomLog" asp-action="Index" asp-route-participantId="@Model.ParticipantId">
+                    <i></i> Check room logs
+                </button>
+            </div>
+            <div class="form-group col-10 text-right pr-0">
+                <button type="submit" class="btn btn-secondary btn-sm col-2" asp-controller="ChatRoom" asp-action="LeaveTheRoom">
+                    <i></i> Leave :(
+                </button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/chat-room.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                urlSendMessage: '@Url.SendMessage()'
+            };
+
+            ChatRoom(options).init();
+        });
+    </script>
+}

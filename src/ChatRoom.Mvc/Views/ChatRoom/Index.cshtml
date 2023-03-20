@@ -1,0 +1,44 @@
+﻿@using ChatRoom.Mvc.Models.ChatRoom
+@using ChatRoom.Mvc.Extensions
+@using ChatRoom.Application.Abstractions.Model
+
+@model ChatRoomLobyVm
+@{
+    ViewData["Title"] = "Welcome to our Chat-room loby";
+
+    List<ChatRoomDto> roomList = ViewBag.Rooms ?? new List<ChatRoomDto>();
+    List<ParticipantDto> participantList = ViewBag.Participants ?? new List<ParticipantDto>();
+
+    var rooms = roomList
+        .ToSelectListItems(x => x.Id, x => x.Name)
+        .InsertEmptyChoice();
+
+    var participants = participantList
+        .ToSelectListItems(x => x.Id, x => x.Name)
+        .InsertEmptyChoice();
+}
+
+<form method="post" class="type2" id="chatRoomLoby">
+
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <div class="mt-lg-5">
+        <div class="form-group col-3">
+            <label asp-for="ChatRoomId" class="display-label text-sm-start pl-0"></label>
+            <select asp-for="ChatRoomId" class="form-control" asp-items="@rooms"></select>
+            <span asp-validation-for="ChatRoomId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-3">
+            <label asp-for="ParticipantId" class="display-label"></label>
+            <select asp-for="ParticipantId" class="form-control" asp-items="@participants"></select>
+            <span asp-validation-for="ParticipantId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-3 pr-lg-3 text-right">
+            <button type="submit" class="btn btn-secondary btn-sm" asp-controller="ChatRoom" asp-action="GetIntoTheRoom">
+                <i></i> Enter the room
+            </button>
+        </div>
+    </div>
+</form>

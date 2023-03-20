@@ -1,0 +1,12 @@
+.vs/
+
+*.suo
+*.user
+
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Aa]rtifacts/
+db/
+*.sln.DotSettings
