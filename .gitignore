@@ -8,5 +8,11 @@
 [Ll]og/
 [Ll]ogs/
 [Aa]rtifacts/
-db/
+
 *.sln.DotSettings
+
+# exclude everything
+db/*
+
+# exception to the rule
+!db/.gitkeep 
