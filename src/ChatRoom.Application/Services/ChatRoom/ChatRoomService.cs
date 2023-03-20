@@ -16,8 +16,8 @@ namespace ChatRoom.Application.Services.ChatRoom
     public class ChatRoomService : IChatRoomService
     {
         private readonly ILogger<ChatRoomService> _logger;
-        private IRepository<Domain.Model.ChatRoom> _chatRoomRepository;
-        private IAggregateRootRepository<Participant> _participantRepository;
+        private IChatRoomRepository<Domain.Model.ChatRoom> _chatRoomRepository;
+        private IRepository<Participant> _participantRepository;
         private readonly IChatRoomRepositoryFactory _chatRoomRepositoryFactory;
         private readonly IChatRoomLogService _chatLogService;
         private readonly IMapper _mapper;
@@ -29,29 +29,38 @@ namespace ChatRoom.Application.Services.ChatRoom
         {
             _logger = logger;
             _chatRoomRepositoryFactory = chatRoomRepositoryFactory;
-            _chatRoomRepository = _chatRoomRepositoryFactory.Repository<IRepository<Domain.Model.ChatRoom>>();
-            _participantRepository = _chatRoomRepositoryFactory.Repository<IAggregateRootRepository<Participant>>();
+            _chatRoomRepository = _chatRoomRepositoryFactory.Repository<IChatRoomRepository<Domain.Model.ChatRoom>>();
+            _participantRepository = _chatRoomRepositoryFactory.Repository<IRepository<Participant>>();
             _chatLogService = chatLogService;
             _mapper = mapper;
+        }
+
+        public async Task CreateRoomAsync(string roomName, CancellationToken cancellationToken = default)
+        {
+            var room = new Domain.Model.ChatRoom(roomName);
+
+            await _chatRoomRepository.AddOrUpdateAsync(room, cancellationToken);
         }
 
         public async Task AddParticipantAsync(int participantId, int roomId, CancellationToken cancellationToken = default)
         {
             var participant = await _participantRepository.GetAsync(participantId, cancellationToken);
+            var chatRoom = (await _chatRoomRepository.GetAsync(roomId, cancellationToken));
 
-            participant?.AddToTheRoom(roomId);
+            chatRoom?.AddParticipant(participant!);
 
-            await _participantRepository.AddOrUpdateAsync(participant!, cancellationToken);
+            await _chatRoomRepository.AddOrUpdateAsync(chatRoom!, cancellationToken);
             await _chatLogService.LogEventAsync(new ParticipantEntered(participantId, participant!.Name, roomId), cancellationToken);
         }
 
         public async Task RemoveParticipantAsync(int participantId, int roomId, CancellationToken cancellationToken = default)
         {
             var participant = await _participantRepository.GetAsync(participantId, cancellationToken);
+            var chatRoom = (await _chatRoomRepository.GetAsync(roomId, cancellationToken));
 
-            participant?.RemoveFromTheRoom();
+            chatRoom?.RemoveParticipant(participantId);
 
-            await _participantRepository.AddOrUpdateAsync(participant!, cancellationToken);
+            await _chatRoomRepository.AddOrUpdateAsync(chatRoom!, cancellationToken);
             await _chatLogService.LogEventAsync(new ParticipantLeft(participantId, participant!.Name, roomId), cancellationToken);
         }
 

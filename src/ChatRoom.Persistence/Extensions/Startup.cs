@@ -14,7 +14,7 @@ public static class Startup
         return services
             .AddSingleton<IChatRoomRepositoryFactory, ChatRoomRepositoryFactory>()
             .AddScoped(typeof(IChatRoomLogRepository<ChatEvent>), typeof(ChatRoomLogRepository))
-            .AddScoped(typeof(IRepository<Domain.Model.ChatRoom>), typeof(ChatRoomRepository))
-            .AddScoped(typeof(IAggregateRootRepository<Participant>), typeof(ParticipantRepository));
+            .AddScoped(typeof(IChatRoomRepository<Domain.Model.ChatRoom>), typeof(ChatRoomRepository))
+            .AddScoped(typeof(IRepository<Participant>), typeof(ParticipantRepository));
     }
 }

@@ -78,55 +78,15 @@ Implements composition root,  where all of the services in the application depen
 
 **Domain**
 
-Defines domain objects, together with data and behaviour. It follows DDD best practicies, to some extent, having aggregate composition, with Participant entity as an aggregate and ChatRoom as an entity.
-
-```csharp
-/// <summary>
-/// Participant
-/// </summary>
-public class Participant : Entity, IAggregateRoot
-{
-    public Participant(string name)
-    {
-        Name = name;
-    }
-
-    public string Name { get; private set; }
-
-    public int? ChatRoomId { get; private set; }
-    public ChatRoom? ChatRoom { get; private set; }
-
-
-    public Participant AddToTheRoom(int? chatRoomId)
-    {
-        ChatRoomId = chatRoomId;
-
-        return this;
-    }
-
-    public Participant RemoveFromTheRoom()
-    {
-        if(ChatRoomId == default)
-            return this;
-
-        ChatRoomId = default;
-        ChatRoom?.RemoveParticipant(Id);
-
-        return this;
-    }
-
-    public override Participant AddIdentity(int id)
-    {
-        Id = id;
-        return this;
-    }
-}
-```
+Defines domain objects, together with data and behaviour. It follows DDD best practicies, to some extent, having aggregate composition, with ChatRoom entity as an aggregate and Participant as an entity.
 ```csharp
 /// <summary>
 /// Chat room
 /// </summary>
-public class ChatRoom : Entity, IChatRoomEntity
+/// <summary>
+/// Chat room
+/// </summary>
+public class ChatRoom : Entity, IAggregateRoot
 {
     public ChatRoom(string name)
     {
@@ -166,6 +126,7 @@ public class ChatRoom : Entity, IChatRoomEntity
         if (participant == null)
             return;
         _participants.Remove(participant.RemoveFromTheRoom());
+        //participant.RemoveFromTheRoom();
     }
 
     public override ChatRoom AddIdentity(int id)
@@ -173,8 +134,46 @@ public class ChatRoom : Entity, IChatRoomEntity
         Id = id;
         return this;
     }
+```
+```csharp
+/// <summary>
+/// Participant
+/// </summary>
+public class Participant : Entity, IChatRoomEntity
+{
+    public Participant(string name)
+    {
+        Name = name;
+    }
+
+    public string Name { get; private set; }
+
+    public int? ChatRoomId { get; private set; }
+    public ChatRoom? ChatRoom { get; private set; }
+
+
+    public Participant AddToTheRoom(int? chatRoomId)
+    {
+        ChatRoomId = chatRoomId;
+        return this;
+    }
+
+    public Participant RemoveFromTheRoom()
+    {
+        ChatRoomId = default;
+        ChatRoom?.RemoveParticipant(Id);
+
+        return this;
+    }
+
+    public override Participant AddIdentity(int id)
+    {
+        Id = id;
+        return this;
+    }
 }
 ```
+
 
  **Applicaition.Abstractions**
  
@@ -279,7 +278,7 @@ public interface IQueryResult<out T> : IQueryResult where T : class
 
 Uses AspNetCore MVC Web project in combination with Javascript as an delivery.
 
-*ChatRoomController*
+*ChatRoomController *
 
 Delivers chat-room features
 
@@ -292,26 +291,26 @@ Delivers chat-room features
 
 Events source delivery.
 
-*ChatRoomService*
+**ChatRoomService**
 
-It hides application services from the UI code, proxies it, behaving as smart proxy, adapting request/replies to the UI needs.
+It hides from the user code application service, proxies it, behaving as smart proxy, changes request/reply.
 
 **Persistence**
 
 Persistence layer has been abstracted as an unit of work divided on repositories and data stores. 
 
-Repositories are organised separately for write and read only.
+Repositories are divided into one with write permissions and the other for reads only.
 
 ```csharp
 /// <summary>
-/// Defines write only repo.
+/// Defines chat-room repo.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IAggregateRootRepository<T> : IRepository<T> where T : class, IAggregateRoot
+public interface IChatRoomRepository<T> : IRepository<T> where T : class, IAggregateRoot
 {
-    Task AddOrUpdateAsync(T root, CancellationToken cancellationToken = default);
+    Task AddOrUpdateAsync(T room, CancellationToken cancellationToken = default);
 
-    Task DeleteAsync(T root, CancellationToken cancellationToken = default);
+    Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
 }
 ```
 
@@ -320,10 +319,6 @@ public interface IRepository
 {
 }
 
-/// <summary>
-/// Defines read-only repo.
-/// </summary>
-/// <typeparam name="T"></typeparam>
 public interface IRepository<T> : IRepository where T : class, IEntity
 {
     Task<IList<T>> GetAllAsync(CancellationToken cancellationToken = default);

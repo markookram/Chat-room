@@ -3,7 +3,7 @@
 /// <summary>
 /// Participant
 /// </summary>
-public class Participant : Entity, IAggregateRoot
+public class Participant : Entity, IChatRoomEntity
 {
     public Participant(string name)
     {
@@ -25,11 +25,8 @@ public class Participant : Entity, IAggregateRoot
 
     public Participant RemoveFromTheRoom()
     {
-        if(ChatRoomId == default)
-            return this;
-
         ChatRoomId = default;
-        ChatRoom?.RemoveParticipant(Id);
+        ChatRoom = null;
 
         return this;
     }
