@@ -19,10 +19,10 @@ public class ParticipantHighFived : ChatEvent
         return $"{ParticipantName} high-fives: {ToParticipantName}.";
     }
 
-    public override string Describe(params string[] prms)
+    public static string DescribeItself(params string[] prms)
     {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "high-fived other people.";
-        return $"{count} high-fived other people.";
+        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "1 person high-fived other people";
+        return $"1 person high-fived {count} other people";
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 using ChatRoom.Application.Abstractions.Extensions;
 using ChatRoom.Application.Abstractions.Infrastructure.Repositories;
 using ChatRoom.Application.Abstractions.Queries;
@@ -15,7 +16,7 @@ public class QueryAggregateByHour : BasicStringResultQuery
 
     public QueryAggregateByHour(ILogger<QueryAggregateByHour> logger,
         IChatRoomLogRepository<ChatEvent> chatRoomLogRepository)
-    :base(logger)
+    : base(logger)
     {
         _chatRoomLogRepository = chatRoomLogRepository;
     }
@@ -25,22 +26,26 @@ public class QueryAggregateByHour : BasicStringResultQuery
         var groups = (await _chatRoomLogRepository.GetAllAsync(cancellationToken))
             .Where(e => e.ChatRoomId == queryParams.RoomId)
             .OrderByDescending(e => e.CreatedOn)
-            .GroupBy(e => new {e.CreatedOn.Date, e.CreatedOn.Hour});
+            .GroupBy(e => new { e.CreatedOn.Date, e.CreatedOn.Hour });
 
         var sb = new StringBuilder();
 
         foreach (var group in groups)
         {
+
             sb.AppendLine($"{(group.Key.Date, group.Key.Hour, 0).ToTuple().ToFormatedString("hh:mm tt")}: ");
 
-            foreach (var agg in group.GroupBy(i => i.Type).Select(g => new
-                     {
-                         Type = g.First().GetType(),
-                         EventType = g.Key,
-                         Total = g.Count()
-                     }))
+            var gr = group.GroupBy(i => new { i.Type, i.ParticipantId }).ToList();
+
+            foreach (var agg in gr.Select(g => new
             {
-                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab, agg.Type.ToDescription(agg.EventType, agg.Total)));
+                Type = g.First().GetType(),
+                EventType = g.Key.Type,
+                Total = g.Count(),
+            }))
+            {
+                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab,
+                    agg.Type.ToDescription(agg.EventType, agg.Total.ToString())));
             }
 
             sb.AppendLine();

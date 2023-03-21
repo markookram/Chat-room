@@ -1,14 +1,17 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿#pragma warning disable CS8618
 using ChatRoom.Domain.Events.Enum;
-
 namespace ChatRoom.Domain.Events;
 
 public class ChatEvent : Entity, IChatEvent
 {
-#pragma warning disable CS8618
+
     public ChatEvent()
-#pragma warning restore CS8618
     {
+    }
+
+    public ChatEvent(EventType type)
+    {
+        Type = type;
     }
 
     public ChatEvent(EventType type, int participantId, string participantName, int chatRoomId)
@@ -66,41 +69,23 @@ public class ChatEvent : Entity, IChatEvent
     {
         return Type switch
         {
-            EventType.ParticipantEntered => $"{ParticipantName} enters the room.",
-            EventType.ParticipantLeft => $"{ParticipantName} leaves.",
+            EventType.ParticipantEntered => $"{ParticipantName} enters the room",
+            EventType.ParticipantLeft => $"{ParticipantName} leaves",
             EventType.ParticipantCommented => $"{ParticipantName} comments: {Message}",
             EventType.PariticipantHighFived => $"{ParticipantName} high-fives: {ToParticipantName}",
             _ => throw new ArgumentOutOfRangeException()
         };
     }
 
-    public virtual string Describe(params string[] prms)
+    public virtual string DescribeItself(params string[] prms)
     {
-        switch (Type)
+        return Type switch
         {
-            case EventType.ParticipantCommented:
-            {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "comments";
-                return $"{count} comments";
-            }
-            case EventType.ParticipantEntered:
-            {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "person entered";
-                var subj = count == 1 ? "person" : "people";
-                return $"{count} {subj} entered";
-            }
-            case EventType.ParticipantLeft:
-            {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "left";
-                return $"{count} left";
-            }
-            case EventType.PariticipantHighFived:
-            {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "high-fived other people";
-                return $"{count} high-fived other people";
-            }
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            EventType.ParticipantEntered => ParticipantEntered.DescribeItself(prms),
+            EventType.ParticipantLeft => ParticipantLeft.DescribeItself(prms),
+            EventType.ParticipantCommented => ParticipantCommented.DescribeItself(prms),
+            EventType.PariticipantHighFived => ParticipantHighFived.DescribeItself(prms),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

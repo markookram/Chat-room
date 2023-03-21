@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ChatRoom.Domain.Events.Enum;
 using ChatRoom.Persistence.SqlLite.Extensions;
 
-namespace ChatRoom.Persistence.SqlLite.Migrations;
+namespace ChatRoom.Persistence.DataStore.SqlLite.Migrations;
 
 public static class ChatRoomEventsDataSeed
 {

@@ -1,10 +1,9 @@
-﻿using ChatRoom.Domain;
-using ChatRoom.Domain.Model;
+﻿using ChatRoom.Domain.Model;
 using ChatRoom.Persistence.SqlLite.Extensions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChatRoom.Persistence.SqlLite.Migrations;
+namespace ChatRoom.Persistence.DataStore.SqlLite.Migrations;
 
 public static class ChatRoomDataSeed
 {

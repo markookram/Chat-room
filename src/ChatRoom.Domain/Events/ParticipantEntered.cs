@@ -19,11 +19,11 @@ public class ParticipantEntered : ChatEvent
         return $"{ParticipantName} enters the room.";
     }
 
-    public override string Describe(params string[] prms)
+    public static string DescribeItself(params string[] prms)
     {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "person entered.";
+        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "person entered";
         var subj = count == 1 ? "person" : "people";
-        return $"{count} {subj} entered.";
+        return $"{count} {subj} entered";
 
     }
 }

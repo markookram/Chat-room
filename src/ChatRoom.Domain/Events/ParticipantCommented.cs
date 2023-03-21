@@ -19,10 +19,10 @@ public class ParticipantCommented : ChatEvent
         return $"{ParticipantName} comments: {Message}.";
     }
 
-    public override string Describe(params string[] prms)
+    public static string DescribeItself(params string[] prms)
     {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "comments.";
-        return $"{count} comments.";
+        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "comments";
+        return $"{count} comments";
 
     }
 }

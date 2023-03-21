@@ -19,10 +19,10 @@ public class ParticipantLeft : ChatEvent
         return $"{ParticipantName} leaves.";
     }
 
-    public override string Describe(params string[] prms)
+    public static string DescribeItself(params string[] prms)
     {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "left.";
-        return $"{count} left.";
+        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "left";
+        return $"{count} left";
 
     }
 }
