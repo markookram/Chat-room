@@ -24,6 +24,8 @@ All search results are delivered in string format.
 
 ------------
 
+![Design](https://user-images.githubusercontent.com/5808394/226567990-9fd17ade-8550-4d47-b440-0963027d834a.png)
+
 
 ### Design
 Chat-room app. tries to follow clean architecting principle using Onion implementation.
@@ -36,16 +38,17 @@ Presentation is an outer delivery layer (Web UI).
 Infrastructure layer is an outer layer,  includes repositories and data stores.
 Application and domain bellongs to the core of the system and forms inner layers responsible for the business.
 
-![Design](https://pasteboard.co/LgyhQNLELj7e.png "Design")
+
 
 ------------
 
 
 ### Implementation
 
-![sln](https://pasteboard.co/x28JuqvIy0LS.png "sln")
-
 Solution follows design decisions. 
+
+![Sln](https://user-images.githubusercontent.com/5808394/226568085-ed526cd5-523f-45bc-9800-a9216e412f1d.png)
+
 
 **Presentation**
 - WebUI
