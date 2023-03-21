@@ -35,14 +35,14 @@ It's been divided into three main parts
 Infrastructure layer, as an external layer, includes delivery part (Web UI) and persistence part used by the system (ORM).
 Application and domain bellongs to core of the system and forms inner layers responsible for the business.
 
-[Design](https://pasteboard.co/IMuelrgi8qLr.png "Design")
+![Design](https://pasteboard.co/IMuelrgi8qLr.png "Design")
 
 ------------
 
 
 ### Implementation
 
-[sln](https://pasteboard.co/x28JuqvIy0LS.png "sln")
+![sln](https://pasteboard.co/x28JuqvIy0LS.png "sln")
 
 Solution follows design decisions. 
 
