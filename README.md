@@ -4,7 +4,7 @@
 
 - Chat-room 
 
-Chat-room is used only as a helper component giving an user a way to generate different types of events.
+Chat-room is a helper component  for different types of events generation.
 1. enter-the-room
 2. leave-the-room
 3. comment
@@ -12,7 +12,7 @@ Chat-room is used only as a helper component giving an user a way to generate di
 
 - Chat-room event logger (statistics) 
 
-Main component responsible for logging events and serving their logs as different projections
+Main component, responsible for logging events and serving their projected logs.
 1. all
 2. grouped by minute
 3. grouped by hour
@@ -27,30 +27,34 @@ All search results are delivered in string format.
 
 ### Design
 Chat-room app. tries to follow clean architecting principle using Onion implementation.
-It's been divided into three main parts
+It's been divided into three main parts/layers
+- Presentation
+- Core
 - Infrastructure
-- Application
-- Domain
 
-Infrastructure layer, as an external layer, includes delivery part (Web UI) and persistence part used by the system (ORM).
-Application and domain bellongs to core of the system and forms inner layers responsible for the business.
+Presentation is an outer delivery layer (Web UI).
+Infrastructure layer is an outer layer,  includes repositories and data stores.
+Application and domain bellongs to the core of the system and forms inner layers responsible for the business.
 
-![Design](https://user-images.githubusercontent.com/5808394/226541767-df068032-da7e-407a-ad07-7383ad18bf12.png)
+![Design](https://pasteboard.co/LgyhQNLELj7e.png "Design")
+
 ------------
 
 
 ### Implementation
 
+![sln](https://pasteboard.co/x28JuqvIy0LS.png "sln")
+
 Solution follows design decisions. 
 
-![Sln](https://user-images.githubusercontent.com/5808394/226541945-9a2ae914-185e-4169-ba0a-f7d702b6b134.png)
+**Presentation**
+- WebUI
 
 **Core layer**
 - Application
 - Domain
 
 **Infrastructure layer**
-- UI
 - Persistance
 
 **Composition**
@@ -275,9 +279,9 @@ public interface IQueryResult<out T> : IQueryResult where T : class
 
 #### Infrastructure
 
-**Frontend**
+**Presentation**
 
-Uses AspNetCore MVC Web project in combination with Javascript as an delivery.
+Uses AspNetCore MVC Web project as an delivery in combination with Javascript.
 
 *ChatRoomController*
 
