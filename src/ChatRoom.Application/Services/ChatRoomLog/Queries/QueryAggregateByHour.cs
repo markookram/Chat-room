@@ -52,7 +52,7 @@ public class QueryAggregateByHour : BasicStringResultQuery
                      {
                          Type = g.First().GetType(),
                          EventType = (EventType)g.Key.Type,
-                         Total = g.Key.Type == EventType.PariticipantHighFived ? XCount(g) : g.Count(),
+                         Total = g.Count()
                      }))
             {
                 sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab, (agg.Type).ToDescription(agg.EventType, agg.Total.ToString())));
@@ -62,20 +62,5 @@ public class QueryAggregateByHour : BasicStringResultQuery
         }
 
         return await Task.Run(() => new StringQueryResult(sb.ToString()));
-
-    }
-
-    private int XCount(IGrouping<dynamic, ChatEvent> group)
-    {
-        var count = 0;
-
-        var ng = group.GroupBy(x => x.ParticipantId).ToList();
-
-        foreach (var item in ng)
-        {
-            count = item.Count();
-        }
-
-        return count;
     }
 }
