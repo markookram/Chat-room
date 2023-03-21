@@ -24,15 +24,14 @@ All search results are delivered in string format.
 
 ------------
 
-![Design](https://user-images.githubusercontent.com/5808394/226567990-9fd17ade-8550-4d47-b440-0963027d834a.png)
-
-
 ### Design
 Chat-room app. tries to follow clean architecting principle using Onion implementation.
 It's been divided into three main parts/layers
 - Presentation
 - Core
 - Infrastructure
+
+![Design](https://user-images.githubusercontent.com/5808394/226568338-f96861af-db88-4f31-9678-dee46ffce27a.png)
 
 Presentation is an outer delivery layer (Web UI).
 Infrastructure layer is an outer layer,  includes repositories and data stores.
