@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChatRoom.Persistence.SqlLite.Configuration;
+namespace ChatRoom.Persistence.DataStore.SqlLite.Configuration;
 
 public class ChatRoomTypeConfiguration : IEntityTypeConfiguration<Domain.Model.ChatRoom>
 {
@@ -12,6 +12,7 @@ public class ChatRoomTypeConfiguration : IEntityTypeConfiguration<Domain.Model.C
         configuration.ConfigureBaseEntity();
 
         configuration.Property(cr => cr.Name)
+            .HasColumnName("NAME")
             .HasMaxLength(50)
             .IsRequired();
 

@@ -6,7 +6,7 @@ public static class ChatEventExtensions
 {
     public static string ToDescription(this Type type, EventType eventType, params string[] prms)
     {
-        var method = type.GetMethod("DescribeItself");
+        var method = type.GetMethod("AggregateString");
         if (method == default)
             return string.Empty;
 

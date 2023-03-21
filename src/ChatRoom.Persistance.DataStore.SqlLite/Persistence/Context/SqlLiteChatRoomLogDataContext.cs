@@ -1,6 +1,6 @@
 ﻿using ChatRoom.Domain.Events;
+using ChatRoom.Persistence.DataStore.SqlLite.Configuration;
 using ChatRoom.Persistence.DataStore.SqlLite.Migrations;
-using ChatRoom.Persistence.SqlLite.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChatRoom.Persistence.DataStore.SqlLite.Persistence.Context;

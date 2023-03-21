@@ -1,6 +1,6 @@
 ﻿using ChatRoom.Domain.Model;
+using ChatRoom.Persistence.DataStore.SqlLite.Configuration;
 using ChatRoom.Persistence.DataStore.SqlLite.Migrations;
-using ChatRoom.Persistence.SqlLite.Configuration;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8618
 

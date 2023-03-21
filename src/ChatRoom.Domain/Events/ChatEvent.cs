@@ -77,7 +77,7 @@ public class ChatEvent : Entity, IChatEvent
         };
     }
 
-    public virtual string DescribeItself(params string[] prms)
+    public virtual string AggregateString(params string[] prms)
     {
         return Type switch
         {
