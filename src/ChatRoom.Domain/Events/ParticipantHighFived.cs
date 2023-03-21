@@ -18,15 +18,7 @@ public class ParticipantHighFived : ChatEvent
         CreatedOn = DateTime.Now;
     }
 
-    public override string ToString()
-    {
-        return $"{ParticipantName} high-fives: {ToParticipantName}.";
-    }
+    public static string StringFormat => "{0} high-fives: {1}";
 
-    public static string DescribeItself(params string[] prms)
-    {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "1 person high-fived other people";
-        return $"1 person high-fived {count} other people";
-
-    }
+    public static string AggregateStringFormat => "1 person high-fived {0} other people";
 }

@@ -16,15 +16,7 @@ public class ParticipantLeft : ChatEvent
         CreatedOn = DateTime.Now;
     }
 
-    public override string ToString()
-    {
-        return $"{ParticipantName} leaves.";
-    }
+    public static string StringFormat => "{0} leaves";
 
-    public static string DescribeItself(params string[] prms)
-    {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "left";
-        return $"{count} left";
-
-    }
+    public static string AggregateStringFormat => "{0} left";
 }

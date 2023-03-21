@@ -8,6 +8,10 @@ public class ParticipantCommented : ChatEvent
     {
     }
 
+    public static string StringFormat => "{0} comments: {1}";
+
+    public static string AggregateStringFormat => "{0} comments";
+
     public ParticipantCommented(EventType type)
         :base(type){}
 
@@ -15,17 +19,5 @@ public class ParticipantCommented : ChatEvent
     :base(EventType.ParticipantCommented,  participantId, participantName, chatRoomId)
     {
         CreatedOn = DateTime.Now;
-    }
-
-    public override string ToString()
-    {
-        return $"{ParticipantName} comments: {Message}.";
-    }
-
-    public static string DescribeItself(params string[] prms)
-    {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "comments";
-        return $"{count} comments";
-
     }
 }

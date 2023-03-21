@@ -69,23 +69,40 @@ public class ChatEvent : Entity, IChatEvent
     {
         return Type switch
         {
-            EventType.ParticipantEntered => $"{ParticipantName} enters the room",
-            EventType.ParticipantLeft => $"{ParticipantName} leaves",
-            EventType.ParticipantCommented => $"{ParticipantName} comments: {Message}",
-            EventType.PariticipantHighFived => $"{ParticipantName} high-fives: {ToParticipantName}",
+            EventType.ParticipantEntered => string.Format(ParticipantEntered.StringFormat, ParticipantName),
+            EventType.ParticipantLeft => string.Format(ParticipantLeft.StringFormat, ParticipantName),
+            EventType.ParticipantCommented => string.Format(ParticipantCommented.StringFormat, ParticipantName, Message),
+            EventType.PariticipantHighFived => string.Format(ParticipantHighFived.StringFormat, ParticipantName, ToParticipantName),
             _ => throw new ArgumentOutOfRangeException()
         };
     }
 
     public virtual string AggregateString(params string[] prms)
     {
-        return Type switch
+        switch (Type)
         {
-            EventType.ParticipantEntered => ParticipantEntered.DescribeItself(prms),
-            EventType.ParticipantLeft => ParticipantLeft.DescribeItself(prms),
-            EventType.ParticipantCommented => ParticipantCommented.DescribeItself(prms),
-            EventType.PariticipantHighFived => ParticipantHighFived.DescribeItself(prms),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            case EventType.ParticipantEntered:
+            {
+                int.TryParse(prms[0], out int count);
+                var subj = count == 1 ? "person" : "people";
+
+                return string.Format(ParticipantEntered.AggregateStringFormat, prms[0], subj);
+            }
+            case EventType.ParticipantLeft:
+            {
+                return string.Format(ParticipantLeft.AggregateStringFormat, prms[0]);
+            }
+            case EventType.ParticipantCommented:
+            {
+                return string.Format(ParticipantCommented.AggregateStringFormat, prms[0]);
+            }
+            case EventType.PariticipantHighFived:
+            {
+                    return string.Format(ParticipantHighFived.AggregateStringFormat, prms[0]);
+            }
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }

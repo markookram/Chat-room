@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Text;
 using ChatRoom.Application.Abstractions.Extensions;
 using ChatRoom.Application.Abstractions.Infrastructure.Repositories;
 using ChatRoom.Application.Abstractions.Queries;
 using ChatRoom.Domain.Events;
+using ChatRoom.Domain.Events.Enum;
 using ChatRoom.Domain.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
@@ -35,17 +37,25 @@ public class QueryAggregateByHour : BasicStringResultQuery
 
             sb.AppendLine($"{(group.Key.Date, group.Key.Hour, 0).ToTuple().ToFormatedString("hh:mm tt")}: ");
 
-            var gr = group.GroupBy(i => new { i.Type, i.ParticipantId }).ToList();
+            IEnumerable<IGrouping<dynamic, ChatEvent>> gr;
+
+            if(group.All(x=>x.Type == EventType.PariticipantHighFived))
+            {
+                gr = group.GroupBy(i => new {i.Type, i.ParticipantId}).ToList();
+            }
+            else
+            {
+                gr = group.GroupBy(i => new {i.Type});
+            }
 
             foreach (var agg in gr.Select(g => new
+                     {
+                         Type = g.First().GetType(),
+                         EventType = (EventType)g.Key.Type,
+                         Total = g.Key.Type == EventType.PariticipantHighFived ? XCount(g) : g.Count(),
+                     }))
             {
-                Type = g.First().GetType(),
-                EventType = g.Key.Type,
-                Total = g.Count(),
-            }))
-            {
-                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab,
-                    agg.Type.ToDescription(agg.EventType, agg.Total.ToString())));
+                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab, (agg.Type).ToDescription(agg.EventType, agg.Total.ToString())));
             }
 
             sb.AppendLine();
@@ -53,5 +63,19 @@ public class QueryAggregateByHour : BasicStringResultQuery
 
         return await Task.Run(() => new StringQueryResult(sb.ToString()));
 
+    }
+
+    private int XCount(IGrouping<dynamic, ChatEvent> group)
+    {
+        var count = 0;
+
+        var ng = group.GroupBy(x => x.ParticipantId).ToList();
+
+        foreach (var item in ng)
+        {
+            count = item.Count();
+        }
+
+        return count;
     }
 }
