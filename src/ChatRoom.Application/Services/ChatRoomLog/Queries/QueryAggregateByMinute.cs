@@ -52,7 +52,7 @@ public class QueryAggregateByMinute : BasicStringResultQuery
                          Total = g.Count()
                      }))
             {
-                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab, (agg.Type).ToDescription(agg.EventType, agg.Total.ToString())));
+                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab, (agg.Type).ToAggregateString(agg.EventType, agg.Total.ToString())));
             }
 
             sb.AppendLine();

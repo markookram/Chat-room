@@ -79,27 +79,26 @@ public class ChatEvent : Entity, IChatEvent
 
     public virtual string AggregateString(params string[] prms)
     {
+        int.TryParse(prms[0], out int count);
+
         switch (Type)
         {
             case EventType.ParticipantEntered:
-            {
-                int.TryParse(prms[0], out int count);
-                var subj = count == 1 ? "person" : "people";
-
-                return string.Format(ParticipantEntered.AggregateStringFormat, prms[0], subj);
-            }
+                {
+                    return string.Format(ParticipantEntered.AggregateStringFormat, prms[0], count == 1 ? "person" : "people");
+                }
             case EventType.ParticipantLeft:
-            {
-                return string.Format(ParticipantLeft.AggregateStringFormat, prms[0]);
-            }
+                {
+                    return string.Format(ParticipantLeft.AggregateStringFormat, prms[0]);
+                }
             case EventType.ParticipantCommented:
-            {
-                return string.Format(ParticipantCommented.AggregateStringFormat, prms[0]);
-            }
+                {
+                    return string.Format(ParticipantCommented.AggregateStringFormat, prms[0]);
+                }
             case EventType.PariticipantHighFived:
-            {
-                    return string.Format(ParticipantHighFived.AggregateStringFormat, prms[0]);
-            }
+                {
+                    return string.Format(ParticipantHighFived.AggregateStringFormat, prms[0], count == 1 ? "person" : "people");
+                }
 
             default:
                 throw new ArgumentOutOfRangeException();

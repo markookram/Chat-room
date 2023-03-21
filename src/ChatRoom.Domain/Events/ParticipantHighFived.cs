@@ -20,5 +20,5 @@ public class ParticipantHighFived : ChatEvent
 
     public static string StringFormat => "{0} high-fives: {1}";
 
-    public static string AggregateStringFormat => "1 person high-fived {0} other people";
+    public static string AggregateStringFormat => "1 person high-fived {0} other {1}";
 }

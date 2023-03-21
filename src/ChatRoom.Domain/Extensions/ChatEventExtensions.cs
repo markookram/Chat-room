@@ -4,13 +4,22 @@ namespace ChatRoom.Domain.Extensions;
 
 public static class ChatEventExtensions
 {
-    public static string ToDescription(this Type type, EventType eventType, params string[] prms)
+    public static string ToAggregateString(this Type type, EventType eventType, params string[] prms)
     {
         var method = type.GetMethod("AggregateString");
         if (method == default)
             return string.Empty;
 
-        var instance = Activator.CreateInstance(type, eventType) ??  Activator.CreateInstance(type);
+        object? instance = null;
+        try
+        {
+            instance = Activator.CreateInstance(type, eventType) ??  Activator.CreateInstance(type);
+        }
+        catch (Exception e)
+        {
+            instance = Activator.CreateInstance(type);
+        }
+
         if(instance == null)
             return string.Empty;
 
