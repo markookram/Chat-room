@@ -342,7 +342,7 @@ There are two different types of data stores
 - In-memory (currently, not fully operational)
 - Sql lite
 
-***Note:***  Both data stores are seeded with chatRoom's and participant's.
+***Note:***  Both data stores are seeded with chatRooms, participants and events.
 
 Data stores are abstracted based on a type of entities they persisted. One for chat-room and the other for event sourcing.
  - IDataStore
