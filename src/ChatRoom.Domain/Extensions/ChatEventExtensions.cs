@@ -10,12 +10,14 @@ public static class ChatEventExtensions
         if (method == default)
             return string.Empty;
 
-        object? instance = null;
+        object? instance;
         try
         {
             instance = Activator.CreateInstance(type, eventType) ??  Activator.CreateInstance(type);
         }
+#pragma warning disable CS0168
         catch (Exception e)
+#pragma warning restore CS0168
         {
             instance = Activator.CreateInstance(type);
         }

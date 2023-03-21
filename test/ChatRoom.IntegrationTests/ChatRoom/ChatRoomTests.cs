@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using System.Web;
+﻿using System.Web;
 using ChatRoom.Application.Abstractions.Events.Enum;
 using ChatRoom.Domain.Events.Enum;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Xunit;
-using Xunit.Sdk;
 
 namespace ChatRoom.IntegrationTests.ChatRoom;
 

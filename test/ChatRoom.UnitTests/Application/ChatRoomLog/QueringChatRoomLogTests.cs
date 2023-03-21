@@ -1,7 +1,5 @@
-﻿using Castle.Core.Logging;
-using ChatRoom.Application.Abstractions.Events.Enum;
+﻿using ChatRoom.Application.Abstractions.Events.Enum;
 using ChatRoom.Application.Abstractions.Infrastructure.Repositories;
-using ChatRoom.Application.Abstractions.Queries;
 using ChatRoom.Application.Abstractions.Queries.Params;
 using ChatRoom.Application.Services.ChatRoomLog.Queries;
 using ChatRoom.Domain.Events;

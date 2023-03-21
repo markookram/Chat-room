@@ -1,5 +1,4 @@
 ﻿using ChatRoom.Domain.Events;
-using ChatRoom.Domain.Model;
 
 namespace ChatRoom.Application.Abstractions.Infrastructure.Persistence;
 

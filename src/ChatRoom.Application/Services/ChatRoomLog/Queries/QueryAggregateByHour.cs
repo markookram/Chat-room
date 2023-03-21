@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Text;
 using ChatRoom.Application.Abstractions.Extensions;
 using ChatRoom.Application.Abstractions.Infrastructure.Repositories;
 using ChatRoom.Application.Abstractions.Queries;
