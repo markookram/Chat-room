@@ -1,7 +1,6 @@
 ﻿using ChatRoom.Domain.Model;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace ChatRoom.Persistence.DataStore.SqlLite.Configuration;
 

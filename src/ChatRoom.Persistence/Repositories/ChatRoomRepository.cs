@@ -6,7 +6,7 @@ namespace ChatRoom.Persistence.Repositories;
 /// <summary>
 /// Implements chat-room repo.
 /// </summary>
-public class ChatRoomRepository : IRepository<Domain.Model.ChatRoom>
+public class ChatRoomRepository : IChatRoomRepository<Domain.Model.ChatRoom>
 {
     private readonly IDataStore _dataStore;
 
@@ -26,4 +26,13 @@ public class ChatRoomRepository : IRepository<Domain.Model.ChatRoom>
         return (await _dataStore.GetDataAsync<Domain.Model.ChatRoom>(id, cancellationToken));
     }
 
+    public async Task AddOrUpdateAsync(Domain.Model.ChatRoom room, CancellationToken cancellationToken = default)
+    {
+        await _dataStore.UpsertDataAsync(room, cancellationToken);
+    }
+
+    public Task DeleteAsync(Domain.Model.ChatRoom room, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }

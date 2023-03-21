@@ -1,5 +1,6 @@
-﻿#pragma warning disable CS8618
 using ChatRoom.Domain.Events.Enum;
+#pragma warning disable CS8618
+
 namespace ChatRoom.Domain.Events;
 
 public class ChatEvent : Entity, IChatEvent

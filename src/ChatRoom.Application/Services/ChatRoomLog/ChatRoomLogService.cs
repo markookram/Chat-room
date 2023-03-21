@@ -2,7 +2,6 @@
 using ChatRoom.Application.Abstractions.Infrastructure.Repositories;
 using ChatRoom.Application.Abstractions.Queries;
 using ChatRoom.Application.Abstractions.Services.ChatRoomLog;
-using ChatRoom.Application.Services.ChatRoom;
 using ChatRoom.Domain.Events;
 using Microsoft.Extensions.Logging;
 

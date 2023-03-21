@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using ChatRoom.Application.Abstractions.Infrastructure.Persistence;
+﻿using ChatRoom.Application.Abstractions.Infrastructure.Persistence;
 using ChatRoom.Persistence.DataStore.SqlLite.Persistence;
 using ChatRoom.Persistence.DataStore.SqlLite.Persistence.Context;
 using Microsoft.EntityFrameworkCore;

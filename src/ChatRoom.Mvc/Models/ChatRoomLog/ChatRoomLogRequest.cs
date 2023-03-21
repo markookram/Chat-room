@@ -1,4 +1,5 @@
 ﻿using ChatRoom.Application.Abstractions.Queries;
+#pragma warning disable CS8618
 
 namespace ChatRoom.Mvc.Models.ChatRoomLog;
 

@@ -1,7 +1,9 @@
-﻿using ChatRoom.Domain.Events;
+using ChatRoom.Domain.Events;
 using ChatRoom.Persistence.DataStore.SqlLite.Configuration;
 using ChatRoom.Persistence.DataStore.SqlLite.Migrations;
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8618
+
 
 namespace ChatRoom.Persistence.DataStore.SqlLite.Persistence.Context;
 

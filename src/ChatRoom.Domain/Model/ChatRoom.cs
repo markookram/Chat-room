@@ -3,7 +3,7 @@
 /// <summary>
 /// Chat room
 /// </summary>
-public class ChatRoom : Entity, IChatRoomEntity
+public class ChatRoom : Entity, IAggregateRoot
 {
     public ChatRoom(string name)
     {
@@ -43,6 +43,7 @@ public class ChatRoom : Entity, IChatRoomEntity
         if (participant == null)
             return;
         _participants.Remove(participant.RemoveFromTheRoom());
+        //participant.RemoveFromTheRoom();
     }
 
     public override ChatRoom AddIdentity(int id)
