@@ -279,9 +279,7 @@ public interface IQueryResult<out T> : IQueryResult where T : class
 
 ```
 
-#### Infrastructure
-
-**Presentation**
+#### Presentation
 
 Uses AspNetCore MVC Web project as an delivery in combination with Javascript. 
 Start-up component.
@@ -302,6 +300,8 @@ Events source delivery.
 *ChatRoomService*
 
 It hides application services from the UI code, proxies it, behaving as smart proxy, adapting request/replies to the UI needs.
+
+#### Infrastructure
 
 **Persistence**
 
