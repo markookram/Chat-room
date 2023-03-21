@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{BEED3FA2-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C5F20ADB-1A5F-4ACE-949B-9BF0DEB98FE2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{D3FD3FE7-AC63-43E1-ADC5-C811064FD787}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{D3FD3FE7-AC63-43E1-ADC5-C811064FD787}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatRoom.Application", "src\ChatRoom.Application\ChatRoom.Application.csproj", "{12FFB265-B139-41C0-AD4B-E28A2ADA97F0}"
 EndProject
