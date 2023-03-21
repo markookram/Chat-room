@@ -83,27 +83,15 @@ public class ChatEvent : Entity, IChatEvent
     {
         TryParse(prms[0], out int count);
 
-        switch (Type)
+        return Type switch
         {
-            case EventType.ParticipantEntered:
-                {
-                    return string.Format(ParticipantEntered.AggregateStringFormat, prms[0], count == 1 ? "person" : "people");
-                }
-            case EventType.ParticipantLeft:
-                {
-                    return string.Format(ParticipantLeft.AggregateStringFormat, prms[0]);
-                }
-            case EventType.ParticipantCommented:
-                {
-                    return string.Format(ParticipantCommented.AggregateStringFormat, prms[0]);
-                }
-            case EventType.PariticipantHighFived:
-                {
-                    return string.Format(ParticipantHighFived.AggregateStringFormat, prms[0], count == 1 ? "person" : "people");
-                }
-
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            EventType.ParticipantEntered => string.Format(ParticipantEntered.AggregateStringFormat, prms[0],
+                count == 1 ? "person" : "people"),
+            EventType.ParticipantLeft => string.Format(ParticipantLeft.AggregateStringFormat, prms[0]),
+            EventType.ParticipantCommented => string.Format(ParticipantCommented.AggregateStringFormat, prms[0]),
+            EventType.PariticipantHighFived => string.Format(ParticipantHighFived.AggregateStringFormat, prms[0],
+                count == 1 ? "person" : "people"),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }
