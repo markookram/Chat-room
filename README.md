@@ -41,9 +41,9 @@ Application and domain bellongs to core of the system and forms inner layers res
 
 ### Implementation
 
-![Sln](https://user-images.githubusercontent.com/5808394/226541945-9a2ae914-185e-4169-ba0a-f7d702b6b134.png)
-
 Solution follows design decisions. 
+
+![Sln](https://user-images.githubusercontent.com/5808394/226541945-9a2ae914-185e-4169-ba0a-f7d702b6b134.png)
 
 **Core layer**
 - Application
