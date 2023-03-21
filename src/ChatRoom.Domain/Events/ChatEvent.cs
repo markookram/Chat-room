@@ -1,5 +1,7 @@
 ﻿#pragma warning disable CS8618
 using ChatRoom.Domain.Events.Enum;
+using static System.Int32;
+
 namespace ChatRoom.Domain.Events;
 
 public class ChatEvent : Entity, IChatEvent
@@ -79,7 +81,7 @@ public class ChatEvent : Entity, IChatEvent
 
     public virtual string AggregateString(params string[] prms)
     {
-        int.TryParse(prms[0], out int count);
+        TryParse(prms[0], out int count);
 
         switch (Type)
         {
