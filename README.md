@@ -69,7 +69,7 @@ Implements composition root,  where all of the services in the application depen
 - Unit tests
 - Integration tests
 
-#### Tech stack
+### Tech stack
 - .NET6
 - Autofac IoC
 - AspNet MVC
@@ -80,7 +80,7 @@ Implements composition root,  where all of the services in the application depen
 - Moq
 - Fluent.Assertions
 
-#### Core layer
+### Core layer
 
 **Domain**
 
@@ -279,7 +279,7 @@ public interface IQueryResult<out T> : IQueryResult where T : class
 
 ```
 
-#### Presentation
+### Presentation
 
 Uses AspNetCore MVC Web project as an delivery in combination with Javascript. 
 Start-up component.
@@ -301,7 +301,7 @@ Events source delivery.
 
 It hides application services from the UI code, proxies it, behaving as smart proxy, adapting request/replies to the UI needs.
 
-#### Infrastructure
+### Infrastructure
 
 **Persistence**
 
@@ -379,7 +379,7 @@ public interface IEventsDataStore
 }
 ```
  
-####  Tests
+###  Tests
 
 **Unit tests**
 
