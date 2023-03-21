@@ -8,6 +8,9 @@ public class ParticipantEntered : ChatEvent
     {
     }
 
+    public ParticipantEntered(EventType type)
+        :base(type){}
+
     public ParticipantEntered(int participantId, string participantName, int chatRoomId)
     :base(EventType.ParticipantEntered, participantId, participantName, chatRoomId)
     {

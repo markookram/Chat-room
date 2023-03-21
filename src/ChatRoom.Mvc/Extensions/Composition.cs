@@ -8,7 +8,7 @@ namespace ChatRoom.Mvc.Extensions;
 /// </summary>
 public class Composition
 {
-    public static bool WithSqlDb = true;
+    public static bool WithSqlDb = false;
 
     public IConfiguration Configuration { get; }
 

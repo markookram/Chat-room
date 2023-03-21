@@ -5,8 +5,10 @@ namespace ChatRoom.Domain.Events;
 public class ParticipantLeft : ChatEvent
 {
     public ParticipantLeft()
-    {
-    }
+    { }
+
+    public ParticipantLeft(EventType type)
+        :base(type){}
 
     public ParticipantLeft(int participantId, string participantName, int chatRoomId)
         :base(EventType.ParticipantLeft, participantId, participantName, chatRoomId)
