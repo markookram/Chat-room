@@ -283,7 +283,8 @@ public interface IQueryResult<out T> : IQueryResult where T : class
 
 **Presentation**
 
-Uses AspNetCore MVC Web project as an delivery in combination with Javascript.
+Uses AspNetCore MVC Web project as an delivery in combination with Javascript. 
+Start-up component.
 
 *ChatRoomController*
 
