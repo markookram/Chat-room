@@ -8,7 +8,6 @@ using ChatRoom.Domain.Model;
 using FluentAssertions;
 using Xunit;
 using Moq;
-using ChatRoom.Application.Services.ChatRoomLog.Queries;
 using Microsoft.Extensions.Logging;
 
 namespace ChatRoom.UnitTests.Application.ChatRoom;

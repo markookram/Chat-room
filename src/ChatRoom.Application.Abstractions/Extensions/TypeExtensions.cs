@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace ChatRoom.Application.Abstractions.Extensions;
+﻿namespace ChatRoom.Application.Abstractions.Extensions;
 
 public static class TypeExtensions
 {

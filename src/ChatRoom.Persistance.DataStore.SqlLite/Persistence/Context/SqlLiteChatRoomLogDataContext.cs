@@ -2,7 +2,7 @@
 using ChatRoom.Persistence.SqlLite.Configuration;
 using ChatRoom.Persistence.SqlLite.Migrations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+#pragma warning disable CS8618
 
 namespace ChatRoom.Persistence.DataStore.SqlLite.Persistence.Context;
 

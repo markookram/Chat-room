@@ -1,5 +1,4 @@
-﻿using ChatRoom.Domain;
-using ChatRoom.Domain.Model;
+﻿using ChatRoom.Domain.Model;
 using ChatRoom.Persistence.SqlLite.Extensions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;

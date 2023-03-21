@@ -1,6 +1,5 @@
 ﻿using ChatRoom.Application.Abstractions.Infrastructure.Persistence;
 using ChatRoom.Application.Abstractions.Infrastructure.Repositories;
-using ChatRoom.Domain;
 using ChatRoom.Domain.Events;
 
 namespace ChatRoom.Persistence.Repositories;

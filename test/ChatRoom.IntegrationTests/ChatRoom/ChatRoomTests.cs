@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web;
+﻿using System.Web;
 using ChatRoom.Application.Abstractions.Events.Enum;
 using ChatRoom.Domain.Events.Enum;
 using FluentAssertions;
