@@ -393,7 +393,7 @@ Tests how different components work together. Uses In-Memory database as a data-
 - Chat-room events generation.
 - Chat-room events sourcing.
  
-####  Cross-cutting
+###  Cross-cutting
 
 All cross-cutting features, like logging, validation, exception-handling, security, that normally exists, here are ommited for the sake of simplicity and 'readibility'.
  
