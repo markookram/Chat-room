@@ -47,11 +47,11 @@ public class QueringChatRoomLogTests  : IClassFixture<ChatRoomEventLogDataStoreF
     [InlineData(GranularityType.All, "11:13 AM:\tKate high-fives: Bob\r\n10:12 AM:\tAlice leaves\r\n09:11 AM:\tBob comments: Hi\r\n08:10 AM:\tMike enters the room")]
     [InlineData(GranularityType.Hourly, "11:00 AM: \r\n\r\n        Kate high-fives: Bob\r\n\r\n10:00 AM: \r\n\r\n        Alice leaves\r\n\r\n09:00 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:00 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
     [InlineData(GranularityType.Minute, "11:13 AM: \r\n\r\n        Kate high-fives: Bob\r\n\r\n10:12 AM: \r\n\r\n        Alice leaves\r\n\r\n09:11 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:10 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
-    [InlineData(GranularityType.AggregatedByHour, "11:00 AM: \r\n\t\t1 person high-fived 1 other people\r\n\r\n10:00 AM: \r\n\t\t1 left\r\n\r\n09:00 AM: \r\n\t\t1 comments\r\n\r\n08:00 AM: \r\n\t\t1 person entered\r\n\r\n")]
-    [InlineData(GranularityType.AggregatedByMinute, "11:13 AM: \r\n\t\t1 person high-fived 1 other people\r\n\r\n10:12 AM: \r\n\t\t1 left\r\n\r\n09:11 AM: \r\n\t\t1 comments\r\n\r\n08:10 AM: \r\n\t\t1 person entered\r\n\r\n")]
+    [InlineData(GranularityType.AggregatedByHour, "11:00 AM: \r\n\t\t1 person high-fived 1 other person\r\n\r\n10:00 AM: \r\n\t\t1 left\r\n\r\n09:00 AM: \r\n\t\t1 comments\r\n\r\n08:00 AM: \r\n\t\t1 person entered\r\n\r\n")]
+    [InlineData(GranularityType.AggregatedByMinute, "11:13 AM: \r\n\t\t1 person high-fived 1 other person\r\n\r\n10:12 AM: \r\n\t\t1 left\r\n\r\n09:11 AM: \r\n\t\t1 comments\r\n\r\n08:10 AM: \r\n\t\t1 person entered\r\n\r\n")]
     public async Task QueryAllTest(GranularityType type, string expectedResult)
     {
-        SeedTestData();
+        _eventsFixture.ModifyEventsBirthdays(new DateTime(2023, 3, 18, 8, 10, 0));
 
         var result = await GetQuery(type).ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
         result.Should().NotBeNull();
@@ -59,17 +59,6 @@ public class QueringChatRoomLogTests  : IClassFixture<ChatRoomEventLogDataStoreF
         result.Result.Should().Be(expectedResult);
     }
 
-
-    private void SeedTestData()
-    {
-        var startDateTime = new DateTime(2023, 3, 18, 8, 10, 0);
-
-        for (int i = 0; i < _eventsFixture.ChatEvents.Count; i++)
-        {
-            var @event = _eventsFixture.ChatEvents[i];
-            @event.TweakDateOfBirth(startDateTime.AddHours(i).AddMinutes(i));
-        }
-    }
 
     private BasicStringResultQuery GetQuery(GranularityType granularityType)
     {

@@ -1,4 +1,6 @@
-﻿using ChatRoom.Domain.Events;
+﻿using ChatRoom.Application.Abstractions.Events.Enum;
+using ChatRoom.Application.Services.ChatRoomLog.Queries;
+using ChatRoom.Domain.Events;
 using ChatRoom.Domain.Events.Enum;
 
 
@@ -25,4 +27,14 @@ public class ChatRoomEventLogDataStoreFixture
             .AddIdentity(_counter ++)
             .SetRecipient(2, "Bob"),
     };
+
+    public void ModifyEventsBirthdays(DateTime dateTime)
+    {
+        for (int i = 0; i < ChatEvents.Count; i++)
+        {
+            var @event = ChatEvents[i];
+            @event.TweakDateOfBirth(dateTime.AddHours(i).AddMinutes(i));
+        }
+    }
+
 }
