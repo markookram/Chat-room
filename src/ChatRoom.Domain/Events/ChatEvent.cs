@@ -1,13 +1,18 @@
-﻿using ChatRoom.Domain.Events.Enum;
+using ChatRoom.Domain.Events.Enum;
+#pragma warning disable CS8618
 
 namespace ChatRoom.Domain.Events;
 
 public class ChatEvent : Entity, IChatEvent
 {
-#pragma warning disable CS8618
+
     public ChatEvent()
-#pragma warning restore CS8618
     {
+    }
+
+    public ChatEvent(EventType type)
+    {
+        Type = type;
     }
 
     public ChatEvent(EventType type, int participantId, string participantName, int chatRoomId)
@@ -65,39 +70,38 @@ public class ChatEvent : Entity, IChatEvent
     {
         return Type switch
         {
-            EventType.ParticipantEntered => $"{ParticipantName} enters the room.",
-            EventType.ParticipantLeft => $"{ParticipantName} leaves.",
-            EventType.ParticipantCommented => $"{ParticipantName} comments: {Message}",
-            EventType.PariticipantHighFived => $"{ParticipantName} high-fives: {ToParticipantName}",
+            EventType.ParticipantEntered => string.Format(ParticipantEntered.StringFormat, ParticipantName),
+            EventType.ParticipantLeft => string.Format(ParticipantLeft.StringFormat, ParticipantName),
+            EventType.ParticipantCommented => string.Format(ParticipantCommented.StringFormat, ParticipantName, Message),
+            EventType.PariticipantHighFived => string.Format(ParticipantHighFived.StringFormat, ParticipantName, ToParticipantName),
             _ => throw new ArgumentOutOfRangeException()
         };
     }
 
-    public virtual string Describe(params string[] prms)
+    public virtual string AggregateString(params string[] prms)
     {
         switch (Type)
         {
-            case EventType.ParticipantCommented:
-            {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "comments";
-                return $"{count} comments";
-            }
             case EventType.ParticipantEntered:
             {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "person entered";
+                int.TryParse(prms[0], out int count);
                 var subj = count == 1 ? "person" : "people";
-                return $"{count} {subj} entered";
+
+                return string.Format(ParticipantEntered.AggregateStringFormat, prms[0], subj);
             }
             case EventType.ParticipantLeft:
             {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "left";
-                return $"{count} left";
+                return string.Format(ParticipantLeft.AggregateStringFormat, prms[0]);
+            }
+            case EventType.ParticipantCommented:
+            {
+                return string.Format(ParticipantCommented.AggregateStringFormat, prms[0]);
             }
             case EventType.PariticipantHighFived:
             {
-                if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "high-fived other people";
-                return $"{count} high-fived other people";
+                    return string.Format(ParticipantHighFived.AggregateStringFormat, prms[0]);
             }
+
             default:
                 throw new ArgumentOutOfRangeException();
         }

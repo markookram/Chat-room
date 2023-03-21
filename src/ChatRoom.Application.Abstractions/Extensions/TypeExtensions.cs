@@ -7,6 +7,5 @@ public static class TypeExtensions
         var dtFormat = new DateTime(dt.Item1.Day, dt.Item1.Month, dt.Item1.Day, dt.Item2, dt.Item3, 0);
 
         return dtFormat.ToString(format);
-        //return $"{dtFormat}:{format}";
     }
 }

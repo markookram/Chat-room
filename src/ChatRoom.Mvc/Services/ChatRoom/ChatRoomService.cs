@@ -68,7 +68,7 @@ public class ChatRoomService : IChatRoomService
 
         foreach (var participantVm in roomVm.Participants?.Where(participantVm => participantVm.Id == participantId) ?? new List<ParticipantVm>())
         {
-            participantVm.Name = $"Me ({participantVm.Name})";
+            participantVm.Name = $"Me - ({participantVm.Name})";
         }
 
         return roomVm;

@@ -5,8 +5,10 @@ namespace ChatRoom.Domain.Events;
 public class ParticipantLeft : ChatEvent
 {
     public ParticipantLeft()
-    {
-    }
+    { }
+
+    public ParticipantLeft(EventType type)
+        :base(type){}
 
     public ParticipantLeft(int participantId, string participantName, int chatRoomId)
         :base(EventType.ParticipantLeft, participantId, participantName, chatRoomId)
@@ -14,15 +16,7 @@ public class ParticipantLeft : ChatEvent
         CreatedOn = DateTime.Now;
     }
 
-    public override string ToString()
-    {
-        return $"{ParticipantName} leaves.";
-    }
+    public static string StringFormat => "{0} leaves";
 
-    public override string Describe(params string[] prms)
-    {
-        if (!prms.Any() || !int.TryParse(prms[0], out int count)) return "left.";
-        return $"{count} left.";
-
-    }
+    public static string AggregateStringFormat => "{0} left";
 }

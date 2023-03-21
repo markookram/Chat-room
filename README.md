@@ -4,7 +4,7 @@
 
 - Chat-room 
 
-Chat-room is used only as a helper component giving an user a way to generate different types of events.
+Chat-room is a helper component  for different types of events generation.
 1. enter-the-room
 2. leave-the-room
 3. comment
@@ -12,7 +12,7 @@ Chat-room is used only as a helper component giving an user a way to generate di
 
 - Chat-room event logger (statistics) 
 
-Main component responsible for logging events and serving their logs as different projections
+Main component, responsible for logging events and serving their projected logs.
 1. all
 2. grouped by minute
 3. grouped by hour
@@ -24,46 +24,52 @@ All search results are delivered in string format.
 
 ------------
 
-
 ### Design
 Chat-room app. tries to follow clean architecting principle using Onion implementation.
-It's been divided into three main parts
+It's been divided into three main parts/layers
+- Presentation
+- Core
 - Infrastructure
-- Application
-- Domain
 
-Infrastructure layer, as an external layer, includes delivery part (Web UI) and persistence part used by the system (ORM).
-Application and domain bellongs to core of the system and forms inner layers responsible for the business.
+![Design](https://user-images.githubusercontent.com/5808394/226568338-f96861af-db88-4f31-9678-dee46ffce27a.png)
 
-[![Design](https://pasteboard.co/IMuelrgi8qLr.png "Design")](https://pasteboard.co/IMuelrgi8qLr.png "Design")
+Presentation is an outer delivery layer (Web UI).
+Infrastructure layer is an outer layer,  includes repositories and data stores.
+Application and domain bellongs to the core of the system and forms inner layers responsible for the business.
+
+
 
 ------------
 
 
 ### Implementation
 
-[![Sln](https://pasteboard.co/X2kKinsxpTHT.png "Sln")](https://pasteboard.co/X2kKinsxpTHT.png "Sln")
-
 Solution follows design decisions. 
+
+![Sln](https://user-images.githubusercontent.com/5808394/226568085-ed526cd5-523f-45bc-9800-a9216e412f1d.png)
+
+
+**Presentation**
+- WebUI
 
 **Core layer**
 - Application
 - Domain
 
 **Infrastructure layer**
-- UI
 - Persistance
 
 **Composition**
 
 Implements composition root,  where all of the services in the application dependencies are defined and "wired up" and makes layer dependencies and flow control clean  as possible.
-**Remark**: *It's not starting point of the app.*
+
+***Note:***  It's not starting point of the app.
 
 **Tests**
 - Unit tests
 - Integration tests
 
-#### Tech stack
+### Tech stack
 - .NET6
 - Autofac IoC
 - AspNet MVC
@@ -74,7 +80,7 @@ Implements composition root,  where all of the services in the application depen
 - Moq
 - Fluent.Assertions
 
-#### Core layer
+### Core layer
 
 **Domain**
 
@@ -272,11 +278,10 @@ public interface IQueryResult<out T> : IQueryResult where T : class
 
 ```
 
-#### Infrastructure
+### Presentation
 
-**Frontend**
-
-Uses AspNetCore MVC Web project in combination with Javascript as an delivery.
+Uses AspNetCore MVC Web project as an delivery in combination with Javascript. 
+Start-up component.
 
 *ChatRoomController *
 
@@ -294,6 +299,8 @@ Events source delivery.
 **ChatRoomService**
 
 It hides from the user code application service, proxies it, behaving as smart proxy, changes request/reply.
+
+### Infrastructure
 
 **Persistence**
 
@@ -327,8 +334,10 @@ public interface IRepository<T> : IRepository where T : class, IEntity
 }
 ```
 There are two different types of data stores
-- In-memory
-- Sql lite (just as an example, right now not fully operational...)
+- In-memory (currently, not fully operational)
+- Sql lite
+
+***Note:***  Both data stores are seeded with chatRooms, participants and events.
 
 Data stores are abstracted based on a type of entities they persisted. One for chat-room and the other for event sourcing.
  - IDataStore
@@ -365,7 +374,7 @@ public interface IEventsDataStore
 }
 ```
  
-####  Tests
+###  Tests
 
 **Unit tests**
 
@@ -379,7 +388,7 @@ Tests how different components work together. Uses In-Memory database as a data-
 - Chat-room events generation.
 - Chat-room events sourcing.
  
-####  Cross-cutting
+###  Cross-cutting
 
 All cross-cutting features, like logging, validation, exception-handling, security, that normally exists, here are ommited for the sake of simplicity and 'readibility'.
  

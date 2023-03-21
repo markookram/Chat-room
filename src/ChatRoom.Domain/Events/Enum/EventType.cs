@@ -2,7 +2,7 @@
 
 public enum EventType
 {
-    ParticipantEntered,
+    ParticipantEntered = 1,
 
     ParticipantLeft,
 

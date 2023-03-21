@@ -1,6 +1,6 @@
 ﻿using ChatRoom.Domain.Model;
-using ChatRoom.Persistence.SqlLite.Configuration;
-using ChatRoom.Persistence.SqlLite.Migrations;
+using ChatRoom.Persistence.DataStore.SqlLite.Configuration;
+using ChatRoom.Persistence.DataStore.SqlLite.Migrations;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8618
 
@@ -18,23 +18,6 @@ public sealed class SqlLiteChatRoomDbContext : DbContext
         Database.EnsureDeleted();
         Database.EnsureCreated();
     }
-
-    /*public SqlLiteChatRoomDbContext(IOptions<ConnectionStringsOptions> options)
-        : base(GetOptions(options.Value))
-    {
-        if (_created) return;
-        _created = true;
-        Database.EnsureDeleted();
-        Database.EnsureCreated();
-    }
-
-    private static DbContextOptions GetOptions(ConnectionStringsOptions connOptions)
-    {
-        var builder = new DbContextOptionsBuilder()
-            .UseSqlite(connOptions.ChatRoomDatabase);
-
-        return builder.Options;
-    }*/
 
     public DbSet<Domain.Model.ChatRoom> ChatRooms { get; set; }
     public DbSet<Participant> Participants { get; set; }

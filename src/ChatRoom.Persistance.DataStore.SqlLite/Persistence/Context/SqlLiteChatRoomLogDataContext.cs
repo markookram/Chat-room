@@ -1,11 +1,13 @@
-﻿using ChatRoom.Domain.Events;
-using ChatRoom.Persistence.SqlLite.Configuration;
-using ChatRoom.Persistence.SqlLite.Migrations;
+using ChatRoom.Domain.Events;
+using ChatRoom.Persistence.DataStore.SqlLite.Configuration;
+using ChatRoom.Persistence.DataStore.SqlLite.Migrations;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8618
 
+
 namespace ChatRoom.Persistence.DataStore.SqlLite.Persistence.Context;
 
+#pragma warning disable CS8618
 public sealed class SqlLiteChatRoomLogDataContext : DbContext
 {
     private static bool _created;
@@ -18,23 +20,6 @@ public sealed class SqlLiteChatRoomLogDataContext : DbContext
         Database.EnsureDeleted();
         Database.EnsureCreated();
     }
-
-    /*public SqlLiteChatRoomLogDataContext(IOptions<ConnectionStringsOptions> options)
-        : base(GetOptions(options.Value))
-    {
-        if (_created) return;
-        _created = true;
-        Database.EnsureDeleted();
-        Database.EnsureCreated();
-    }
-
-    private static DbContextOptions GetOptions(ConnectionStringsOptions conOptions)
-    {
-        var builder = new DbContextOptionsBuilder()
-            .UseSqlite(conOptions.ChatRoomLogDatabase);
-
-        return builder.Options;
-    }*/
 
     public DbSet<ChatEvent> ChatEvents { get; set; }
 

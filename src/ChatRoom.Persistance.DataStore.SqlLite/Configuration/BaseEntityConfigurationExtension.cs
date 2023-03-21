@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ChatRoom.Persistence.SqlLite.Configuration;
+namespace ChatRoom.Persistence.DataStore.SqlLite.Configuration;
 
 public static class BaseEntityConfigurationExtension
 {

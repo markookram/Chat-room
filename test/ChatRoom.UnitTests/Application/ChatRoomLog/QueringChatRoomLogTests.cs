@@ -43,12 +43,23 @@ public class QueringChatRoomLogTests  : IClassFixture<ChatRoomEventLogDataStoreF
     }
 
     [Theory]
-    [InlineData(GranularityType.All)]
-    [InlineData(GranularityType.Hourly)]
-    [InlineData(GranularityType.Minute)]
-    [InlineData(GranularityType.AggregatedByHour)]
-    [InlineData(GranularityType.AggregatedByMinute)]
-    public async Task QueryAllTest(GranularityType type)
+    [InlineData(GranularityType.All, "11:13 AM:\tKate high-fives: Bob\r\n10:12 AM:\tAlice leaves\r\n09:11 AM:\tBob comments: Hi\r\n08:10 AM:\tMike enters the room")]
+    [InlineData(GranularityType.Hourly, "11:00 AM: \r\n\r\n        Kate high-fives: Bob\r\n\r\n10:00 AM: \r\n\r\n        Alice leaves\r\n\r\n09:00 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:00 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
+    [InlineData(GranularityType.Minute, "11:13 AM: \r\n\r\n        Kate high-fives: Bob\r\n\r\n10:12 AM: \r\n\r\n        Alice leaves\r\n\r\n09:11 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:10 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
+    [InlineData(GranularityType.AggregatedByHour, "11:00 AM: \r\n\t\t1 person high-fived 1 other people\r\n\r\n10:00 AM: \r\n\t\t1 left\r\n\r\n09:00 AM: \r\n\t\t1 comments\r\n\r\n08:00 AM: \r\n\t\t1 person entered\r\n\r\n")]
+    [InlineData(GranularityType.AggregatedByMinute, "11:13 AM: \r\n\t\t1 person high-fived 1 other people\r\n\r\n10:12 AM: \r\n\t\t1 left\r\n\r\n09:11 AM: \r\n\t\t1 comments\r\n\r\n08:10 AM: \r\n\t\t1 person entered\r\n\r\n")]
+    public async Task QueryAllTest(GranularityType type, string expectedResult)
+    {
+        SeedTestData();
+
+        var result = await GetQuery(type).ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
+        result.Should().NotBeNull();
+        result.Result.Length.Should().Be(expectedResult.Length);
+        result.Result.Should().Be(expectedResult);
+    }
+
+
+    private void SeedTestData()
     {
         var startDateTime = new DateTime(2023, 3, 18, 8, 10, 0);
 
@@ -57,49 +68,24 @@ public class QueringChatRoomLogTests  : IClassFixture<ChatRoomEventLogDataStoreF
             var @event = _eventsFixture.ChatEvents[i];
             @event.TweakDateOfBirth(startDateTime.AddHours(i).AddMinutes(i));
         }
+    }
 
-        StringQueryResult result;
-        switch (type)
+    private BasicStringResultQuery GetQuery(GranularityType granularityType)
+    {
+        switch (granularityType)
         {
             case GranularityType.All:
-                result = await _queryAll.ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
-                result.Should().NotBeNull();
-                result.Result.Length.Should().Be(118);
-                result.Result.Should()
-                    .Be("11:13 AM:\tKate high-fives: Bob.\r\n10:12 AM:\tAlice leaves.\r\n09:11 AM:\tBob comments: Hi.\r\n08:10 AM:\tMike enters the room.");
-                break;
+                return _queryAll;
             case GranularityType.Hourly:
-                result = await _queryByHour.ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
-                result.Should().NotBeNull();
-                result.Result.Length.Should().Be(176);
-                result.Result.Should()
-                    .Be("11:00 AM: \r\n\r\n        Kate high-fives: Bob.\r\n\r\n10:00 AM: \r\n\r\n        Alice leaves.\r\n\r\n09:00 AM: \r\n\r\n        Bob comments: Hi.\r\n\r\n08:00 AM: \r\n\r\n        Mike enters the room.\r\n\r\n");
-                break;
+                return _queryByHour;
             case GranularityType.Minute:
-                result = await _queryByMinute.ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
-                result.Should().NotBeNull();
-                result.Result.Length.Should().Be(176);
-                result.Result.Should()
-                    .Be("11:13 AM: \r\n\r\n        Kate high-fives: Bob.\r\n\r\n10:12 AM: \r\n\r\n        Alice leaves.\r\n\r\n09:11 AM: \r\n\r\n        Bob comments: Hi.\r\n\r\n08:10 AM: \r\n\r\n        Mike enters the room.\r\n\r\n");
-                break;
+                return _queryByMinute;
             case GranularityType.AggregatedByHour:
-                result = await _queryAggregateByHour.ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
-                result.Should().NotBeNull();
-                result.Result.Length.Should().Be(133);
-                result.Result.Should()
-                    .Be("11:00 AM: \r\n\t\t1 high-fived other people.\r\n\r\n10:00 AM: \r\n\t\t1 left.\r\n\r\n09:00 AM: \r\n\t\t1 comments.\r\n\r\n08:00 AM: \r\n\t\t1 person entered.\r\n\r\n");
-                break;
+                return _queryAggregateByHour;
             case GranularityType.AggregatedByMinute:
-                result = await _queryAggregateByMinute.ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
-                result.Should().NotBeNull();
-                result.Result.Length.Should().Be(133);
-                result.Result.Should()
-                    .Be("11:13 AM: \r\n\t\t1 high-fived other people.\r\n\r\n10:12 AM: \r\n\t\t1 left.\r\n\r\n09:11 AM: \r\n\t\t1 comments.\r\n\r\n08:10 AM: \r\n\t\t1 person entered.\r\n\r\n");
-                break;
+                return _queryAggregateByMinute;
             default:
-                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                throw new ArgumentOutOfRangeException(nameof(granularityType), granularityType, null);
         }
-
-        ;
     }
 }
