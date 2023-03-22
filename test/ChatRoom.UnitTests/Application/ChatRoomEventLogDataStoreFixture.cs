@@ -1,5 +1,4 @@
 ﻿using ChatRoom.Domain.Events;
-using ChatRoom.Domain.Events.Enum;
 
 
 namespace ChatRoom.UnitTests.Application;

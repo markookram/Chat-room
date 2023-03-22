@@ -1,6 +1,5 @@
 ﻿using ChatRoom.Application.Abstractions.Infrastructure.Persistence;
 using ChatRoom.Domain.Events;
-using ChatRoom.Domain.Events.Enum;
 
 namespace ChatRoom.Persistence.DataStore.InMemory.Persistence;
 
@@ -27,11 +26,9 @@ public class InMemoryEventsDataStore : IEventsDataStore
         new ParticipantEntered(  4, "Alice", _roomId1)
             .AddIdentity(_counter++),
 
-
-
         new ParticipantCommented(1, "Mike", _roomId1)
-            .AddIdentity(_counter++),
-
+            .AddIdentity(_counter++)
+            .AddMessage("Hi..."),
         new ParticipantCommented(2, "Bob", _roomId1)
             .AddIdentity(_counter++)
             .AddMessage("Same to you"),
@@ -43,8 +40,6 @@ public class InMemoryEventsDataStore : IEventsDataStore
         new ParticipantCommented(4, "Alice", _roomId1)
             .AddIdentity(_counter++)
             .AddMessage("Yes, sorry my headphones were muted."),
-
-
 
         new ParticipantLeft(4, "Alice", _roomId1)
             .AddIdentity(_counter++),
@@ -63,8 +58,6 @@ public class InMemoryEventsDataStore : IEventsDataStore
 
         new ParticipantLeft(1, "Mike", _roomId1)
             .AddIdentity(_counter++),
-
-
 
         new ParticipantEntered( 4, "Alice", _roomId2)
             .AddIdentity(_counter++),
