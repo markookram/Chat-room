@@ -36,7 +36,7 @@ public class QueryAggregateByMinute : BasicStringResultQuery
 
             IEnumerable<IGrouping<dynamic, ChatEvent>> gr;
 
-            if(group.All(x=>x.Type == EventType.PariticipantHighFived))
+            if(group.All(x=>x.Type == EventType.ParticipantHighFived))
             {
                 gr = group.GroupBy(i => new {i.Type, i.ParticipantId}).ToList();
             }
@@ -47,12 +47,11 @@ public class QueryAggregateByMinute : BasicStringResultQuery
 
             foreach (var agg in gr.Select(g => new
                      {
-                         Type = g.First().GetType(),
-                         EventType = (EventType)g.Key.Type,
+                         Event = g.First(),
                          Total = g.Count()
                      }))
             {
-                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab, (agg.Type).ToAggregateString(agg.EventType, agg.Total.ToString())));
+                sb.AppendLine(string.Join(Constants.vbTab, Constants.vbTab, agg.Event.AggregateString(agg.Total.ToString())));
             }
 
             sb.AppendLine();

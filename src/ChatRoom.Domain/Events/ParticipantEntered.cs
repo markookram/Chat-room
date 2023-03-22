@@ -8,16 +8,19 @@ public class ParticipantEntered : ChatEvent
     {
     }
 
-    public ParticipantEntered(EventType type)
-        :base(type){}
-
     public ParticipantEntered(int participantId, string participantName, int chatRoomId)
     :base(EventType.ParticipantEntered, participantId, participantName, chatRoomId)
     {
         CreatedOn = DateTime.Now;
     }
 
-    public static string StringFormat => "{0} enters the room";
+    public override string ToEventString()
+    {
+        return $"{ParticipantName} enters the room";
+    }
 
-    public static string AggregateStringFormat=> "{0} {1} entered";
+    public override string ToAggregateString(params string[] prms)
+    {
+        return $"{prms[0]} {prms[1]} entered";
+    }
 }

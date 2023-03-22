@@ -11,17 +11,17 @@ public class ChatRoomEventLogDataStoreFixture
 
     public readonly IList<ChatEvent> ChatEvents = new List<ChatEvent>(6)
     {
-        new ChatEvent(EventType.ParticipantEntered, 1, "Mike", RoomId)
+        new ParticipantEntered( 1, "Mike", RoomId)
             .AddIdentity(_counter ++),
 
-        new ChatEvent(EventType.ParticipantCommented, 2, "Bob", RoomId)
+        new ParticipantCommented( 2, "Bob", RoomId)
             .AddIdentity(_counter ++)
             .AddMessage("Hi"),
 
-        new ChatEvent(EventType.ParticipantLeft, 4, "Alice", RoomId)
+        new ParticipantLeft( 4, "Alice", RoomId)
             .AddIdentity(_counter ++),
 
-        new ChatEvent(EventType.PariticipantHighFived, 3, "Kate", RoomId)
+        new ParticipantHighFived( 3, "Kate", RoomId)
             .AddIdentity(_counter ++)
             .SetRecipient(2, "Bob"),
     };

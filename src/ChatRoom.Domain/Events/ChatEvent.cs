@@ -1,22 +1,18 @@
 ﻿#pragma warning disable CS8618
 using ChatRoom.Domain.Events.Enum;
 using ChatRoom.Domain.Extensions;
+using static System.Int32;
 
 namespace ChatRoom.Domain.Events;
 
-public class ChatEvent : Entity, IChatEvent
+public abstract class ChatEvent : Entity, IChatEvent
 {
 
-    public ChatEvent()
+    protected ChatEvent()
     {
     }
 
-    public ChatEvent(EventType type)
-    {
-        Type = type;
-    }
-
-    public ChatEvent(EventType type, int participantId, string participantName, int chatRoomId)
+    protected ChatEvent(EventType type, int participantId, string participantName, int chatRoomId)
     {
         Type = type;
         ParticipantId = participantId;
@@ -51,9 +47,9 @@ public class ChatEvent : Entity, IChatEvent
 
     public ChatEvent SetRecipient(int? participantId, string? participantName)
     {
-        if (participantId != default && participantName != default && Type != EventType.PariticipantHighFived)
+        if (participantId != default && participantName != default && Type != EventType.ParticipantHighFived)
             throw new InvalidOperationException(
-                $"Only for {EventType.PariticipantHighFived} is allowed to set the recipient.");
+                $"Only for {EventType.ParticipantHighFived} is allowed to set the recipient.");
 
         ToParticipantId = participantId;
         ToParticipantName = participantName;
@@ -69,11 +65,17 @@ public class ChatEvent : Entity, IChatEvent
 
     public override string ToString()
     {
-        return Type.ToEventString(ParticipantName, Message ?? ToParticipantName);
+        return ToEventString();
     }
 
-    public string AggregateString(params string[] prms)
+    public abstract string ToEventString();
+
+    public abstract string ToAggregateString(params string[] prms);
+
+    public string ToAggregateStringFormat(params string[] prms)
     {
-        return Type.ToAggegateEventString(prms);
+        TryParse(prms[0], out int count);
+
+        return ToAggregateString(prms[0], count == 1 ? "person" : "people");
     }
 }

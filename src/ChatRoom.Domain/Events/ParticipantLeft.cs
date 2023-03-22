@@ -7,16 +7,19 @@ public class ParticipantLeft : ChatEvent
     public ParticipantLeft()
     { }
 
-    public ParticipantLeft(EventType type)
-        :base(type){}
-
     public ParticipantLeft(int participantId, string participantName, int chatRoomId)
         :base(EventType.ParticipantLeft, participantId, participantName, chatRoomId)
     {
         CreatedOn = DateTime.Now;
     }
 
-    public static string StringFormat => "{0} leaves";
+    public override string ToEventString()
+    {
+        return $"{ParticipantName} leaves";
+    }
 
-    public static string AggregateStringFormat => "{0} left";
+    public override string ToAggregateString(params string[] prms)
+    {
+        return $"{prms[0]} left";
+    }
 }

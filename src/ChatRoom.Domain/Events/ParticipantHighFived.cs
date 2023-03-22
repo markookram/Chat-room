@@ -8,17 +8,19 @@ public class ParticipantHighFived : ChatEvent
     {
     }
 
-    public ParticipantHighFived(EventType type)
-    :base(type){}
-
-
     public ParticipantHighFived(int participantId, string participantName, int chatRoomId)
-    :base(EventType.PariticipantHighFived, participantId, participantName, chatRoomId)
+    :base(EventType.ParticipantHighFived, participantId, participantName, chatRoomId)
     {
         CreatedOn = DateTime.Now;
     }
 
-    public static string StringFormat => "{0} high-fives: {1}";
+    public override string ToEventString()
+    {
+        return $"{ParticipantName} high-fives: {ToParticipantName}";
+    }
 
-    public static string AggregateStringFormat => "1 person high-fived {0} other {1}";
+    public override string ToAggregateString(params string[] prms)
+    {
+        return $"1 person high-fived {prms[0]} other {prms[1]}";
+    }
 }

@@ -15,69 +15,69 @@ public class InMemoryEventsDataStore : IEventsDataStore
 
     private readonly IList<ChatEvent> _store = new List<ChatEvent>(6)
     {
-        new ChatEvent(EventType.ParticipantEntered, 1, "Mike", _roomId1)
+        new ParticipantEntered(1, "Mike", _roomId1)
             .AddIdentity(_counter++),
 
-        new ChatEvent(EventType.ParticipantEntered, 2, "Bob", _roomId1)
+        new ParticipantEntered( 2, "Bob", _roomId1)
             .AddIdentity(_counter++),
 
-        new ChatEvent(EventType.ParticipantEntered, 3, "Kate", _roomId1)
+        new ParticipantEntered(  3, "Kate", _roomId1)
             .AddIdentity(_counter++),
 
-        new ChatEvent(EventType.ParticipantEntered, 4, "Alice", _roomId1)
+        new ParticipantEntered(  4, "Alice", _roomId1)
             .AddIdentity(_counter++),
 
 
 
-        new ChatEvent(EventType.ParticipantCommented, 1, "Mike", _roomId1)
+        new ParticipantCommented(1, "Mike", _roomId1)
             .AddIdentity(_counter++)
             .AddMessage("Hi..."),
 
-        new ChatEvent(EventType.ParticipantCommented, 2, "Bob", _roomId1)
+        new ParticipantCommented(2, "Bob", _roomId1)
             .AddIdentity(_counter++)
             .AddMessage("Same to you"),
 
-        new ChatEvent(EventType.ParticipantCommented, 3, "Kate", _roomId1)
+        new ParticipantCommented(3, "Kate", _roomId1)
             .AddIdentity(_counter++)
             .AddMessage("Alice do you hear us?"),
 
-        new ChatEvent(EventType.ParticipantCommented, 4, "Alice", _roomId1)
+        new ParticipantCommented(4, "Alice", _roomId1)
             .AddIdentity(_counter++)
             .AddMessage("Yes, sorry my headphones were muted."),
 
 
 
-        new ChatEvent(EventType.ParticipantLeft, 4, "Alice", _roomId1)
+        new ParticipantLeft(4, "Alice", _roomId1)
             .AddIdentity(_counter++),
 
-        new ChatEvent(EventType.ParticipantCommented, 2, "Bob", _roomId1)
+        new ParticipantCommented(2, "Bob", _roomId1)
             .AddIdentity(_counter++)
             .AddMessage("Before we start, Kate last time forgot to tell you how I like your high-five gesture :)"),
 
-        new ChatEvent(EventType.PariticipantHighFived, 3, "Kate", _roomId1)
+        new ParticipantHighFived(3, "Kate", _roomId1)
             .AddIdentity(_counter++)
             .SetRecipient(2, "Bob"),
 
-        new ChatEvent(EventType.PariticipantHighFived, 3, "Kate", _roomId1)
+        new ParticipantHighFived(3, "Kate", _roomId1)
             .AddIdentity(_counter++)
             .SetRecipient(2, "Bob"),
 
-        new ChatEvent(EventType.ParticipantLeft, 1, "Mike", _roomId1)
+        new ParticipantLeft(1, "Mike", _roomId1)
             .AddIdentity(_counter++),
 
 
 
-        new ChatEvent(EventType.ParticipantEntered, 4, "Alice", _roomId2)
+        new ParticipantEntered( 4, "Alice", _roomId2)
             .AddIdentity(_counter++),
 
-        new ChatEvent(EventType.ParticipantEntered, 1, "Mike", _roomId2)
+        new ParticipantEntered( 1, "Mike", _roomId2)
             .AddIdentity(_counter++),
 
-        new ChatEvent(EventType.ParticipantCommented, 1, "Mike", _roomId2)
+        new ParticipantCommented(1, "Mike", _roomId2)
             .AddIdentity(_counter++)
             .AddMessage("Hi Alice, sorry for being late."),
 
-        new ChatEvent(EventType.ParticipantCommented, 4, "Alice", _roomId2)
+        new ParticipantCommented(4, "Alice", _roomId2)
             .AddIdentity(_counter++)
             .AddMessage("nw"),
     };

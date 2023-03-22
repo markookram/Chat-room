@@ -12,5 +12,5 @@ public interface IChatEvent : IEntity, IAuditableEntity
 
     int ChatRoomId { get; }
 
-    string AggregateString(params string[] prms);
+    string ToAggregateStringFormat(params string[] prms);
 }

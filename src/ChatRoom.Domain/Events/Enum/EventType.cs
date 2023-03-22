@@ -2,11 +2,13 @@
 
 public enum EventType
 {
+    None = 0,
+
     ParticipantEntered = 1,
 
     ParticipantLeft,
 
     ParticipantCommented,
 
-    PariticipantHighFived
+    ParticipantHighFived
 }
