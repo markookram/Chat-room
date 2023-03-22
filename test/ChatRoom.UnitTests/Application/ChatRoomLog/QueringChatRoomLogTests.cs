@@ -42,9 +42,9 @@ public class QueringChatRoomLogTests  : IClassFixture<ChatRoomEventLogDataStoreF
     }
 
     [Theory]
-    [InlineData(GranularityType.All, "11:13 AM:\tKate high-fives: \r\n10:12 AM:\tAlice leaves\r\n09:11 AM:\tBob comments: Hi\r\n08:10 AM:\tMike enters the room")]
-    [InlineData(GranularityType.Hourly, "11:00 AM: \r\n\r\n        Kate high-fives: \r\n\r\n10:00 AM: \r\n\r\n        Alice leaves\r\n\r\n09:00 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:00 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
-    [InlineData(GranularityType.Minute, "11:13 AM: \r\n\r\n        Kate high-fives: \r\n\r\n10:12 AM: \r\n\r\n        Alice leaves\r\n\r\n09:11 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:10 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
+    [InlineData(GranularityType.All, "11:13 AM:\tKate high-fives: Bob\r\n10:12 AM:\tAlice leaves\r\n09:11 AM:\tBob comments: Hi\r\n08:10 AM:\tMike enters the room")]
+    [InlineData(GranularityType.Hourly, "11:00 AM: \r\n\r\n        Kate high-fives: Bob\r\n\r\n10:00 AM: \r\n\r\n        Alice leaves\r\n\r\n09:00 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:00 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
+    [InlineData(GranularityType.Minute, "11:13 AM: \r\n\r\n        Kate high-fives: Bob\r\n\r\n10:12 AM: \r\n\r\n        Alice leaves\r\n\r\n09:11 AM: \r\n\r\n        Bob comments: Hi\r\n\r\n08:10 AM: \r\n\r\n        Mike enters the room\r\n\r\n")]
     [InlineData(GranularityType.AggregatedByHour, "11:00 AM: \r\n\t\t1 person high-fived 1 other person\r\n\r\n10:00 AM: \r\n\t\t1 left\r\n\r\n09:00 AM: \r\n\t\t1 comments\r\n\r\n08:00 AM: \r\n\t\t1 person entered\r\n\r\n")]
     [InlineData(GranularityType.AggregatedByMinute, "11:13 AM: \r\n\t\t1 person high-fived 1 other person\r\n\r\n10:12 AM: \r\n\t\t1 left\r\n\r\n09:11 AM: \r\n\t\t1 comments\r\n\r\n08:10 AM: \r\n\t\t1 person entered\r\n\r\n")]
     public async Task QueryAllTest(GranularityType type, string expectedResult)

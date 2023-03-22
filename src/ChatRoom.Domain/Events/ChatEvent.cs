@@ -69,7 +69,7 @@ public class ChatEvent : Entity, IChatEvent
 
     public override string ToString()
     {
-        return Type.ToEventString(ParticipantName, Message);
+        return Type.ToEventString(ParticipantName, Type == EventType.ParticipantCommented ? Message : ToParticipantName);
     }
 
     public string AggregateString(params string[] prms)
