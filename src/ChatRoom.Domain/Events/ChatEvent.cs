@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CS8618
 using ChatRoom.Domain.Events.Enum;
-using static System.Int32;
+using ChatRoom.Domain.Extensions;
 
 namespace ChatRoom.Domain.Events;
 
@@ -69,29 +69,11 @@ public class ChatEvent : Entity, IChatEvent
 
     public override string ToString()
     {
-        return Type switch
-        {
-            EventType.ParticipantEntered => string.Format(ParticipantEntered.StringFormat, ParticipantName),
-            EventType.ParticipantLeft => string.Format(ParticipantLeft.StringFormat, ParticipantName),
-            EventType.ParticipantCommented => string.Format(ParticipantCommented.StringFormat, ParticipantName, Message),
-            EventType.PariticipantHighFived => string.Format(ParticipantHighFived.StringFormat, ParticipantName, ToParticipantName),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        return Type.ToEventString(ParticipantName, Message);
     }
 
-    public virtual string AggregateString(params string[] prms)
+    public string AggregateString(params string[] prms)
     {
-        TryParse(prms[0], out int count);
-
-        return Type switch
-        {
-            EventType.ParticipantEntered => string.Format(ParticipantEntered.AggregateStringFormat, prms[0],
-                count == 1 ? "person" : "people"),
-            EventType.ParticipantLeft => string.Format(ParticipantLeft.AggregateStringFormat, prms[0]),
-            EventType.ParticipantCommented => string.Format(ParticipantCommented.AggregateStringFormat, prms[0]),
-            EventType.PariticipantHighFived => string.Format(ParticipantHighFived.AggregateStringFormat, prms[0],
-                count == 1 ? "person" : "people"),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        return Type.ToAggegateEventString(prms);
     }
 }
