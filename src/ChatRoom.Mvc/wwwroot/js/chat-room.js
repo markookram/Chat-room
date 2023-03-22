@@ -42,7 +42,12 @@
                 let roomId = $('main').find("#Id").val();
                 let participantId = $('main').find("#ParticipantId").val();
                 let message = $('div#chatActivity').find("#Message").val();
+                if (message === '') {
+                    alert("Please enter a comment.");
+                    return;
+                }
                 
+
                 var postData = {
                     roomId: roomId,
                     participantId: participantId,
