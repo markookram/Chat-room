@@ -25,15 +25,7 @@ public static class ChatEventExtensions
         if(instance == null)
             return string.Empty;
 
-        return eventType switch
-        {
-            EventType.ParticipantEntered
-                or EventType.ParticipantLeft
-                or EventType.PariticipantHighFived
-                or EventType.ParticipantCommented => (string)method.Invoke(instance,
-                    new object[] { prms.ToArray() })!,
-            _ => string.Empty,
-        };
+        return (string) method.Invoke(instance, new object[] {prms.ToArray()})!;
     }
 
 }
