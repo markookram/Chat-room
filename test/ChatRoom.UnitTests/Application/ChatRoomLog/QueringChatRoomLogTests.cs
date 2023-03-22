@@ -53,7 +53,7 @@ public class QueringChatRoomLogTests  : IClassFixture<ChatRoomEventLogDataStoreF
 
         var result = await GetQuery(type).ExecuteAsync(new QueryParams(type).AddRoomId(ChatRoomEventLogDataStoreFixture.RoomId));
         result.Should().NotBeNull();
-        //result.Result.Length.Should().Be(expectedResult.Length);
+        result.Result.Length.Should().Be(expectedResult.Length);
         result.Result.Should().Be(expectedResult);
     }
 
