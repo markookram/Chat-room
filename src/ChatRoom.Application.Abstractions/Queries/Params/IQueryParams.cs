@@ -1,6 +1,6 @@
 ﻿using ChatRoom.Application.Abstractions.Events.Enum;
 
-namespace ChatRoom.Application.Abstractions.Queries;
+namespace ChatRoom.Application.Abstractions.Queries.Params;
 
 /// <summary>
 /// Represents a query params

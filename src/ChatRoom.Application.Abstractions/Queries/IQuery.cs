@@ -1,4 +1,6 @@
-﻿namespace ChatRoom.Application.Abstractions.Queries;
+﻿using ChatRoom.Application.Abstractions.Queries.Params;
+
+namespace ChatRoom.Application.Abstractions.Queries;
 
 /// <summary>
 /// Defines a query command.

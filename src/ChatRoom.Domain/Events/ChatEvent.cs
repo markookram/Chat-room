@@ -1,11 +1,14 @@
 ﻿#pragma warning disable CS8618
 using ChatRoom.Domain.Events.Enum;
-using ChatRoom.Domain.Extensions;
 using static System.Int32;
 
 namespace ChatRoom.Domain.Events;
 
-public abstract class ChatEvent : Entity, IChatEvent
+public abstract class ChatEvent : Entity,
+    IChatEvent,
+    IChatEventWithMessage,
+    IChatEventWithRecipient
+
 {
 
     protected ChatEvent()
@@ -28,38 +31,25 @@ public abstract class ChatEvent : Entity, IChatEvent
 
     public int ChatRoomId { get; private set; }
 
-    public string? Message { get; private set; }
+    public virtual string? Message { get; protected set; }
 
-    public int? ToParticipantId { get; private set; }
+    public virtual int? ToParticipantId { get; protected set; }
 
-    public string? ToParticipantName { get; private set; }
-
-    public ChatEvent AddMessage(string? message)
-    {
-        if (!string.IsNullOrEmpty(message) && Type != EventType.ParticipantCommented)
-            throw new InvalidOperationException(
-                $"Only for {EventType.ParticipantCommented} is allowed to add the comment.");
-
-        Message = message;
-
-        return this;
-    }
-
-    public ChatEvent SetRecipient(int? participantId, string? participantName)
-    {
-        if (participantId != default && participantName != default && Type != EventType.ParticipantHighFived)
-            throw new InvalidOperationException(
-                $"Only for {EventType.ParticipantHighFived} is allowed to set the recipient.");
-
-        ToParticipantId = participantId;
-        ToParticipantName = participantName;
-
-        return this;
-    }
+    public virtual string? ToParticipantName { get; protected set; }
 
     public override ChatEvent AddIdentity(int id)
     {
         Id = id;
+        return this;
+    }
+
+    public virtual ChatEvent AddMessage(string? message)
+    {
+        return this;
+    }
+
+    public virtual ChatEvent SetRecipient(int? participantId, string? participantName)
+    {
         return this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace ChatRoom.Domain.Events;
 
-public class ParticipantHighFived : ChatEvent
+public class ParticipantHighFived : ChatEvent, IChatEventWithRecipient
 {
     public ParticipantHighFived()
     {
@@ -12,6 +12,18 @@ public class ParticipantHighFived : ChatEvent
     :base(EventType.ParticipantHighFived, participantId, participantName, chatRoomId)
     {
         CreatedOn = DateTime.Now;
+    }
+
+    public override ParticipantHighFived SetRecipient(int? participantId, string? participantName)
+    {
+        if (participantId != default && participantName != default && Type != EventType.ParticipantHighFived)
+            throw new InvalidOperationException(
+                $"Only for {EventType.ParticipantHighFived} is allowed to set the recipient.");
+
+        ToParticipantId = participantId;
+        ToParticipantName = participantName;
+
+        return this;
     }
 
     public override string ToEventString()

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using ChatRoom.Application.Abstractions.Events.Enum;
 using ChatRoom.Application.Abstractions.Queries;
+using ChatRoom.Application.Abstractions.Queries.Params;
 using ChatRoom.Application.Abstractions.Services.ChatRoom;
 using ChatRoom.Application.Abstractions.Services.ChatRoomLog;
 using ChatRoom.Application.Services.ChatRoom;

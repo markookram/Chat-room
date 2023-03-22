@@ -30,8 +30,7 @@ public class InMemoryEventsDataStore : IEventsDataStore
 
 
         new ParticipantCommented(1, "Mike", _roomId1)
-            .AddIdentity(_counter++)
-            .AddMessage("Hi..."),
+            .AddIdentity(_counter++),
 
         new ParticipantCommented(2, "Bob", _roomId1)
             .AddIdentity(_counter++)

@@ -2,6 +2,7 @@
 using ChatRoom.Application.Abstractions.Extensions;
 using ChatRoom.Application.Abstractions.Infrastructure.Repositories;
 using ChatRoom.Application.Abstractions.Queries;
+using ChatRoom.Application.Abstractions.Queries.Params;
 using ChatRoom.Domain.Events;
 using ChatRoom.Domain.Events.Enum;
 using ChatRoom.Domain.Extensions;

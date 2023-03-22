@@ -2,12 +2,17 @@
 
 namespace ChatRoom.Domain.Events;
 
-public class ParticipantCommented : ChatEvent
+public class ParticipantCommented : ChatEvent, IChatEventWithMessage
 {
     public ParticipantCommented()
     {
     }
 
+    public ParticipantCommented(int participantId, string participantName, int chatRoomId)
+        :base(EventType.ParticipantCommented,  participantId, participantName, chatRoomId)
+    {
+        CreatedOn = DateTime.Now;
+    }
 
     public override string ToEventString()
     {
@@ -19,9 +24,14 @@ public class ParticipantCommented : ChatEvent
         return $"{prms[0]} comments";
     }
 
-    public ParticipantCommented(int participantId, string participantName, int chatRoomId)
-    :base(EventType.ParticipantCommented,  participantId, participantName, chatRoomId)
+    public override ParticipantCommented AddMessage(string? message)
     {
-        CreatedOn = DateTime.Now;
+        if (!string.IsNullOrEmpty(message) && Type != EventType.ParticipantCommented)
+            throw new InvalidOperationException(
+                $"Only for {EventType.ParticipantCommented} is allowed to add the comment.");
+
+        Message = message;
+
+        return this;
     }
 }

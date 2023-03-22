@@ -1,4 +1,4 @@
-﻿using ChatRoom.Application.Abstractions.Queries;
+﻿using ChatRoom.Application.Abstractions.Queries.Params;
 
 namespace ChatRoom.Mvc.Models.ChatRoomLog;
 

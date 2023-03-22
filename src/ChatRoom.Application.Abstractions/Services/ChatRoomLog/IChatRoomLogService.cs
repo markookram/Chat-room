@@ -1,4 +1,5 @@
 ﻿using ChatRoom.Application.Abstractions.Queries;
+using ChatRoom.Application.Abstractions.Queries.Params;
 using ChatRoom.Domain.Events;
 
 namespace ChatRoom.Application.Abstractions.Services.ChatRoomLog;
