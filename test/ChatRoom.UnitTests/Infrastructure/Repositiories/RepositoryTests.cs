@@ -1,6 +1,6 @@
 ﻿namespace ChatRoom.UnitTests.Infrastructure.Repositiories;
 
-public class RepositoryTest
+public class RepositoryTests
 {
     //Test IAggregateRootRepository, IRepository
 }
