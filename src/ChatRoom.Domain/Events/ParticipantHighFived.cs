@@ -2,7 +2,7 @@
 
 namespace ChatRoom.Domain.Events;
 
-public class ParticipantHighFived : ChatEvent, IChatEventWithRecipient
+public class ParticipantHighFived : ChatEvent, IChatEventRecipient
 {
     public ParticipantHighFived()
     {

@@ -2,6 +2,9 @@
 
 namespace ChatRoom.Domain.Events;
 
+/// <summary>
+/// Defines closely event entity.
+/// </summary>
 public interface IChatEvent : IEntity, IAuditableEntity
 {
     EventType Type { get; }

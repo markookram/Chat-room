@@ -1,6 +1,6 @@
 ﻿namespace ChatRoom.Domain.Events;
 
-public interface IChatEventWithRecipient
+public interface IChatEventRecipient
 {
     public int? ToParticipantId { get; }
 

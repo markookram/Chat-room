@@ -6,8 +6,8 @@ namespace ChatRoom.Domain.Events;
 
 public abstract class ChatEvent : Entity,
     IChatEvent,
-    IChatEventWithMessage,
-    IChatEventWithRecipient
+    IChatEventMessage,
+    IChatEventRecipient
 
 {
 
@@ -66,6 +66,6 @@ public abstract class ChatEvent : Entity,
     {
         TryParse(prms[0], out int count);
 
-        return ToAggregateString(prms[0], count == 1 ? "person" : "people");
+        return ToAggregateString(count.ToString(), count == 1 ? "person" : "people");
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ChatRoom.Domain.Events;
 
-public class ParticipantCommented : ChatEvent, IChatEventWithMessage
+public class ParticipantCommented : ChatEvent, IChatEventMessage
 {
     public ParticipantCommented()
     {

@@ -1,6 +1,6 @@
 ﻿namespace ChatRoom.Domain.Events;
 
-public interface IChatEventWithMessage
+public interface IChatEventMessage
 {
     string? Message { get; }
 
